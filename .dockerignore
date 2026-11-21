@@ -1,0 +1,23 @@
+# Fuera del contexto de compilación: dependencias locales, salidas de compilación, secretos, datos de prueba y documentación.
+**/node_modules
+**/.next
+**/.next-*
+.git
+.github
+**/.env
+**/.env.*
+!**/.env.example
+**/.storage
+**/.storage-*
+**/*.tsbuildinfo
+**/next-env.d.ts
+backups
+**/coverage
+prototype
+docs
+deploy
+docker-compose*.yml
+apps/web/tests
+apps/web/e2e
+**/*.log
+apps/web/public/scorm-runtime/*.min.js

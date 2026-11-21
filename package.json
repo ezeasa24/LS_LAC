@@ -1,0 +1,13 @@
+{
+  "name": "leadersource",
+  "private": true,
+  "workspaces": ["apps/web", "db"],
+  "scripts": {
+    "db:migrate": "npm run migrate -w db",
+    "db:seed": "npm run seed -w db",
+    "dev": "npm run dev -w apps/web",
+    "build": "npm run build -w apps/web",
+    "typecheck": "npm run typecheck -w apps/web",
+    "test": "npm run test -w apps/web"
+  }
+}

@@ -1,0 +1,14 @@
+node_modules
+.next
+.env
+.env.local
+.storage
+.storage-test
+next-env.d.ts
+*.tsbuildinfo
+apps/web/public/scorm-runtime/*.min.js
+.next-*
+.env.production
+web-c
+web-c0
+.dev/
