@@ -1,0 +1,1344 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>LeaderSource</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,400;1,400&family=Montserrat:wght@500;600&family=Open+Sans:wght@400;600;700&display=swap">
+<style>/* LeaderSource – sistema visual del prototipo.
+   Concepto de layout: sobrio, académico, con espacios amplios; tres entornos (portal, campus, oficina) con el mismo encabezado y los mismos componentes. */
+:root {
+  --ls-deep: #173B5E;
+  --ls-leader: #65A9D1;
+  --ls-leader-ink: #2A6E99;
+  --ls-sky: #A9D3E9;
+  --ls-mist: #EAF3F8;
+  --ls-gray: #657481;
+  --ls-gray-mist: #536471;
+  --ls-white: #FFFFFF;
+
+  --bg: #FFFFFF;
+  --surface: #FFFFFF;
+  --surface-alt: #EAF3F8;
+  --fg: #173B5E;
+  --fg-body: #24384A;
+  --fg-soft: #657481;
+  --fg-soft-alt: #536471;
+  --line: #D3E0E9;
+  --link: #2A6E99;
+  --accent: #65A9D1;
+  --accent-soft: #A9D3E9;
+  --btn-bg: #173B5E;
+  --btn-fg: #FFFFFF;
+  --hero-bg: #173B5E;
+  --hero-fg: #FFFFFF;
+  --hero-soft: #C9DEEC;
+  --ok: #1F6B4A;
+  --ok-bg: #E3F2EA;
+  --warn: #8A5A00;
+  --warn-bg: #FBF0D9;
+  --bad: #A12B2B;
+  --bad-bg: #F8E5E5;
+  --focus: #173B5E;
+
+  --font-display: "Montserrat", "Segoe UI", system-ui, sans-serif;
+  --font-body: "Open Sans", "Segoe UI", system-ui, sans-serif;
+  --font-serif: "Merriweather", Georgia, "Times New Roman", serif;
+
+  --r-card: 10px;
+  --r-ctl: 8px;
+  --gutter: 24px;
+  --maxw: 1200px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0E2236; --surface: #16304A; --surface-alt: #122A41;
+    --fg: #E7EEF4; --fg-body: #D5E0E9; --fg-soft: #9AA9B5; --fg-soft-alt: #9AA9B5;
+    --line: #2A4560; --link: #8FC3E3; --accent: #65A9D1; --accent-soft: #2D5878;
+    --btn-bg: #8FC3E3; --btn-fg: #0E2236; --hero-bg: #0A1A2A; --hero-fg: #F2F7FB; --hero-soft: #B7CCDB;
+    --ok: #7FD1A8; --ok-bg: #153A2B; --warn: #E8BE6A; --warn-bg: #3B2D10; --bad: #F0A0A0; --bad-bg: #401A1A;
+    --focus: #8FC3E3; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0E2236; --surface: #16304A; --surface-alt: #122A41;
+  --fg: #E7EEF4; --fg-body: #D5E0E9; --fg-soft: #9AA9B5; --fg-soft-alt: #9AA9B5;
+  --line: #2A4560; --link: #8FC3E3; --accent: #65A9D1; --accent-soft: #2D5878;
+  --btn-bg: #8FC3E3; --btn-fg: #0E2236; --hero-bg: #0A1A2A; --hero-fg: #F2F7FB; --hero-soft: #B7CCDB;
+  --ok: #7FD1A8; --ok-bg: #153A2B; --warn: #E8BE6A; --warn-bg: #3B2D10; --bad: #F0A0A0; --bad-bg: #401A1A;
+  --focus: #8FC3E3; color-scheme: dark;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *, *::before, *::after { transition: none !important; animation: none !important; } }
+body {
+  margin: 0; background: var(--bg); color: var(--fg-body);
+  font: 400 1rem/1.65 var(--font-body);
+  padding-left: max(0px, env(safe-area-inset-left, 0px)); padding-right: max(0px, env(safe-area-inset-right, 0px));
+}
+h1, h2, h3, h4 { font-family: var(--font-display); color: var(--fg); margin: 0; text-wrap: balance; }
+h1 { font-weight: 600; font-size: clamp(2rem, 4.4vw, 3.1rem); line-height: 1.12; letter-spacing: -0.01em; }
+h2 { font-weight: 600; font-size: clamp(1.5rem, 2.6vw, 2rem); line-height: 1.2; }
+h3 { font-weight: 500; font-size: 1.25rem; line-height: 1.3; }
+h4 { font-weight: 500; font-size: 1.05rem; line-height: 1.35; }
+p { margin: 0; max-width: 68ch; }
+a { color: var(--link); text-underline-offset: 3px; }
+a:hover { text-decoration-thickness: 2px; }
+:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; border-radius: 4px; }
+img, svg { max-width: 100%; }
+.icon { width: 1.25em; height: 1.25em; flex: none; fill: none; stroke: currentColor; stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round; vertical-align: -0.2em; }
+.sr-only { position: absolute !important; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.skip { position: absolute; left: 8px; top: -60px; background: var(--btn-bg); color: var(--btn-fg); padding: 10px 16px; border-radius: var(--r-ctl); z-index: 100; }
+.skip:focus { top: 8px; }
+
+.wrap { width: 100%; max-width: calc(var(--maxw) + 2 * var(--gutter)); margin-inline: auto; padding-inline: max(16px, var(--gutter)); }
+.section { padding-block: clamp(56px, 8vw, 96px); }
+.section.alt { background: var(--surface-alt); }
+.section-head { display: grid; gap: 12px; margin-bottom: 40px; }
+.section-head p { color: var(--fg-soft); }
+.eyebrow { font: 600 0.75rem/1.2 var(--font-body); letter-spacing: 0.08em; text-transform: uppercase; color: var(--fg-soft-alt); }
+.alt .eyebrow { color: var(--fg-soft-alt); }
+.grid { display: grid; gap: 24px; }
+.g2 { grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr)); }
+.g3 { grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); }
+.g4 { grid-template-columns: repeat(auto-fit, minmax(min(100%, 230px), 1fr)); }
+.stack { display: grid; gap: 16px; align-content: start; }
+.row { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+.muted { color: var(--fg-soft); }
+.nowrap { white-space: nowrap; }
+[hidden] { display: none !important; }
+
+/* Marcador de estado del prototipo */
+.protobar { background: var(--ls-deep); color: #fff; font-size: 0.8125rem; }
+:root[data-theme="dark"] .protobar { background: #07131F; }
+.protobar .wrap { display: flex; flex-wrap: wrap; gap: 6px 16px; align-items: center; padding-block: 8px; }
+.protobar a { color: #fff; font-weight: 600; }
+.tag { display: inline-flex; align-items: center; gap: 4px; font: 600 0.6875rem/1 var(--font-body); letter-spacing: 0.05em; text-transform: uppercase; padding: 4px 8px; border-radius: 999px; border: 1px solid currentColor; white-space: nowrap; }
+.tag.demo { color: var(--warn); background: var(--warn-bg); }
+.tag.f3 { color: var(--fg-soft-alt); background: var(--surface-alt); }
+.tag.real { color: var(--ok); background: var(--ok-bg); }
+.protobar .tag { border-color: rgba(255,255,255,.55); background: transparent; color: #fff; }
+
+/* Botones */
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 44px; padding: 10px 20px; border-radius: var(--r-ctl); border: 2px solid var(--btn-bg); background: var(--btn-bg); color: var(--btn-fg); font: 600 0.9375rem/1.2 var(--font-body); text-decoration: none; cursor: pointer; transition: background-color .15s, color .15s, border-color .15s; }
+.btn:hover { background: var(--ls-leader); border-color: var(--ls-leader); color: #0E2236; }
+.btn.sec { background: transparent; color: var(--fg); border-color: var(--fg); }
+.btn.sec:hover { background: var(--accent-soft); border-color: var(--fg); color: var(--fg); }
+.btn.txt { background: transparent; border-color: transparent; color: var(--link); padding-inline: 8px; }
+.btn.txt:hover { background: var(--surface-alt); color: var(--link); border-color: transparent; }
+.btn.on-dark { background: #fff; border-color: #fff; color: #173B5E; }
+.btn.on-dark:hover { background: var(--ls-leader); border-color: var(--ls-leader); }
+.btn.sec.on-dark { background: transparent; color: #fff; border-color: #fff; }
+.btn.sec.on-dark:hover { background: rgba(255,255,255,.14); color: #fff; }
+.btn.sm { min-height: 36px; padding: 6px 14px; font-size: 0.875rem; }
+.btn[disabled], .btn[aria-disabled="true"] { background: var(--surface-alt); border-color: var(--line); color: var(--fg-soft-alt); cursor: not-allowed; }
+.btn[disabled]:hover { background: var(--surface-alt); border-color: var(--line); color: var(--fg-soft-alt); }
+
+/* Formularios */
+label, .label { display: block; font: 600 0.875rem/1.3 var(--font-body); color: var(--fg); margin-bottom: 6px; }
+input[type="text"], input[type="search"], input[type="email"], select, textarea {
+  width: 100%; min-height: 44px; padding: 10px 12px; border-radius: var(--r-ctl); border: 1.5px solid var(--fg-soft); background: var(--surface); color: var(--fg-body); font: 400 1rem/1.4 var(--font-body);
+}
+textarea { min-height: 110px; resize: vertical; }
+input[type="checkbox"], input[type="radio"] { width: 20px; height: 20px; accent-color: var(--ls-deep); margin: 0; flex: none; }
+:root[data-theme="dark"] input[type="checkbox"], :root[data-theme="dark"] input[type="radio"] { accent-color: #8FC3E3; }
+.check { display: flex; align-items: flex-start; gap: 10px; font-weight: 400; color: var(--fg-body); margin: 0; padding: 6px 0; cursor: pointer; }
+.field { display: grid; gap: 4px; }
+fieldset { border: 0; padding: 0; margin: 0; min-width: 0; }
+legend { font: 600 0.875rem/1.3 var(--font-body); color: var(--fg); padding: 0; margin-bottom: 6px; }
+
+/* Tarjetas */
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-card); padding: 24px; min-width: 0; }
+.card.mist { background: var(--surface-alt); }
+.card.link { text-decoration: none; color: inherit; display: grid; gap: 12px; align-content: start; transition: border-color .15s, transform .15s; }
+.card.link:hover { border-color: var(--accent); }
+.card h3 a { color: inherit; text-decoration: none; }
+.card h3 a:hover { text-decoration: underline; }
+.chip { display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; border-radius: 999px; font: 600 0.75rem/1.2 var(--font-body); background: var(--surface-alt); color: var(--fg-soft-alt); border: 1px solid var(--line); white-space: nowrap; }
+.chip.stage { background: var(--accent-soft); color: var(--fg); border-color: transparent; }
+.chip.ok { background: var(--ok-bg); color: var(--ok); border-color: transparent; }
+.chip.warn { background: var(--warn-bg); color: var(--warn); border-color: transparent; }
+.chip.bad { background: var(--bad-bg); color: var(--bad); border-color: transparent; }
+.chip.pub { background: var(--ok-bg); color: var(--ok); border-color: transparent; }
+.chip.priv { background: var(--surface-alt); color: var(--fg); border-color: var(--line); }
+.ico-box { width: 44px; height: 44px; border-radius: 10px; background: var(--accent-soft); color: var(--fg); display: grid; place-items: center; font-size: 1.25rem; }
+.ico-box .icon { width: 24px; height: 24px; }
+
+/* Marcador de fotografía */
+.ph { position: relative; display: grid; place-items: center; text-align: center; padding: 20px; min-height: 220px; border: 1.5px dashed var(--accent); border-radius: var(--r-card); background:
+  repeating-linear-gradient(135deg, transparent 0 14px, rgba(101,169,209,.12) 14px 15px); color: var(--fg-soft-alt); font-size: 0.8125rem; }
+.ph strong { display: block; color: var(--fg); font-family: var(--font-display); font-weight: 500; margin-bottom: 4px; font-size: 0.9375rem; }
+.hero .ph { color: var(--hero-soft); border-color: rgba(255,255,255,.45); background: repeating-linear-gradient(135deg, transparent 0 14px, rgba(255,255,255,.07) 14px 15px); }
+.hero .ph strong { color: #fff; }
+
+/* Cabecera pública */
+.site-header { position: sticky; top: 0; z-index: 30; background: var(--bg); border-bottom: 1px solid var(--line); }
+.site-header .wrap { display: flex; align-items: center; gap: 16px; min-height: 68px; }
+.brand { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; color: var(--fg); font: 600 1.25rem/1 var(--font-display); letter-spacing: -0.01em; }
+.brand b { font-weight: 500; color: var(--link); }
+.brand .mark { width: 30px; height: 30px; border-radius: 8px; background: var(--ls-deep); display: grid; place-items: center; }
+.brand .mark svg { width: 18px; height: 18px; fill: none; stroke: #A9D3E9; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+:root[data-theme="dark"] .brand .mark { background: #1E4465; }
+.nav { display: flex; gap: 2px; margin-left: auto; align-items: center; }
+.nav a { color: var(--fg); text-decoration: none; padding: 10px 12px; border-radius: var(--r-ctl); font-size: 0.9375rem; font-weight: 600; white-space: nowrap; }
+.nav a:hover { background: var(--surface-alt); }
+.nav a[aria-current="page"] { box-shadow: inset 0 -3px 0 var(--accent); border-radius: 0; }
+.nav .btn { color: var(--btn-fg); margin-left: 8px; }
+.nav .btn:hover { color: #0E2236; }
+.menu-btn { display: none; margin-left: auto; }
+@media (max-width: 1060px) {
+  .menu-btn { display: inline-flex; }
+  .nav { display: none; position: absolute; left: 0; right: 0; top: 100%; background: var(--bg); border-bottom: 1px solid var(--line); flex-direction: column; align-items: stretch; padding: 12px max(16px, var(--gutter)) 20px; margin: 0; }
+  .nav.open { display: flex; }
+  .nav a { padding: 12px; }
+  .nav .btn { margin: 8px 0 0; }
+  .site-header .wrap { position: relative; }
+}
+
+/* Héroe */
+.hero { background: var(--hero-bg); color: var(--hero-fg); }
+.hero h1 { color: var(--hero-fg); }
+.hero .lead { color: var(--hero-soft); font-size: 1.125rem; max-width: 56ch; }
+.hero .eyebrow { color: var(--ls-sky); }
+.hero-grid { display: grid; grid-template-columns: 1.15fr 1fr; gap: clamp(24px, 5vw, 64px); align-items: center; padding-block: clamp(48px, 7vw, 88px); }
+.hero-grid > * { min-width: 0; }
+@media (max-width: 860px) { .hero-grid { grid-template-columns: 1fr; } }
+.page-head { background: var(--surface-alt); border-bottom: 1px solid var(--line); }
+.page-head .wrap { padding-block: clamp(32px, 5vw, 56px); display: grid; gap: 12px; }
+.page-head p { color: var(--fg-soft-alt); font-size: 1.0625rem; }
+
+/* Cita Merriweather */
+.quote { font-family: var(--font-serif); font-size: clamp(1.1rem, 2vw, 1.375rem); line-height: 1.65; color: var(--fg); border-left: 4px solid var(--accent); padding: 4px 0 4px 24px; margin: 0; max-width: 62ch; }
+.quote cite { display: block; margin-top: 12px; font: 600 0.875rem/1.3 var(--font-body); font-style: normal; color: var(--fg-soft-alt); }
+.quote.italic p { font-style: italic; }
+
+/* Estrategia */
+.principle { display: grid; gap: 12px; align-content: start; }
+.principle .num { font: 600 0.75rem/1 var(--font-body); letter-spacing: .08em; text-transform: uppercase; color: var(--fg-soft-alt); }
+.action { display: grid; gap: 8px; align-content: start; padding: 20px; }
+.action h4 { display: flex; align-items: center; gap: 10px; }
+.action p { font-size: 0.9375rem; color: var(--fg-soft-alt); }
+.stages { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; position: relative; counter-reset: st; list-style: none; padding: 0; margin: 0; }
+.stages li { position: relative; padding: 0 16px 0 0; display: grid; gap: 8px; align-content: start; }
+.stages .dot { width: 40px; height: 40px; border-radius: 50%; background: var(--surface); border: 2px solid var(--accent); display: grid; place-items: center; font: 600 0.9375rem/1 var(--font-display); color: var(--fg); position: relative; z-index: 1; }
+.stages li::before { content: ""; position: absolute; top: 19px; left: 40px; right: 0; height: 2px; background: var(--accent-soft); }
+.stages li:last-child::before { display: none; }
+.stages li:hover .dot, .stages li:focus-within .dot { background: var(--accent-soft); }
+@media (max-width: 760px) {
+  .stages { grid-template-columns: 1fr; gap: 20px; }
+  .stages li { padding: 0 0 0 56px; }
+  .stages .dot { position: absolute; left: 0; top: 0; }
+  .stages li::before { top: 40px; left: 19px; width: 2px; height: calc(100% + 0px); right: auto; }
+}
+
+/* Catálogo */
+.catalog { display: grid; grid-template-columns: 280px 1fr; gap: 32px; align-items: start; }
+.catalog > * { min-width: 0; }
+@media (max-width: 900px) { .catalog { grid-template-columns: 1fr; } }
+.filters { display: grid; gap: 20px; position: sticky; top: 92px; }
+@media (max-width: 900px) { .filters { position: static; } }
+.course-card { display: grid; gap: 12px; align-content: start; height: 100%; }
+.meta { display: flex; flex-wrap: wrap; gap: 6px 14px; color: var(--fg-soft); font-size: 0.8125rem; }
+.meta span { display: inline-flex; align-items: center; gap: 5px; }
+.card .meta { color: var(--fg-soft); }
+.card.mist .meta { color: var(--fg-soft-alt); }
+
+/* App shell */
+.app { display: grid; grid-template-columns: 264px 1fr; min-height: calc(100vh - 100px); }
+.app > * { min-width: 0; }
+.sidebar { background: var(--ls-deep); color: #fff; padding: 20px 14px; display: grid; gap: 4px; align-content: start; position: sticky; top: 0; align-self: start; height: 100vh; overflow-y: auto; }
+:root[data-theme="dark"] .sidebar { background: #0A1A2A; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .sidebar { background: #0A1A2A; } }
+.sidebar .brand { color: #fff; padding: 4px 8px 16px; }
+.sidebar .brand b { color: var(--ls-sky); }
+.sidebar .brand .mark { background: rgba(255,255,255,.12); }
+.sidebar h2 { font: 600 0.6875rem/1 var(--font-body); letter-spacing: .09em; text-transform: uppercase; color: var(--ls-sky); padding: 16px 10px 6px; }
+.sidebar a { display: flex; align-items: center; gap: 10px; padding: 10px; border-radius: var(--r-ctl); color: #fff; text-decoration: none; font-size: 0.9375rem; font-weight: 600; }
+.sidebar a:hover { background: rgba(255,255,255,.1); }
+.sidebar a[aria-current="page"] { background: rgba(169,211,233,.2); box-shadow: inset 3px 0 0 var(--ls-sky); }
+.sidebar :focus-visible { outline-color: #fff; }
+.sidebar .role-box { margin-top: 12px; padding: 12px; border-radius: var(--r-card); background: rgba(255,255,255,.08); display: grid; gap: 6px; }
+.sidebar .role-box label { color: #fff; margin: 0; font-size: 0.75rem; }
+.sidebar .role-box select { min-height: 40px; background: #fff; color: #173B5E; border-color: #fff; }
+.sidebar .role-box small { color: #C9DEEC; font-size: 0.75rem; line-height: 1.4; }
+.app-main { min-width: 0; }
+.app-top { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; justify-content: space-between; padding: 14px max(16px, var(--gutter)); border-bottom: 1px solid var(--line); background: var(--bg); }
+.app-top .crumbs { font-size: 0.875rem; color: var(--fg-soft); }
+.app-top .crumbs a { color: var(--link); }
+.app-body { padding: clamp(20px, 3vw, 40px) max(16px, var(--gutter)) 72px; display: grid; gap: 28px; align-content: start; max-width: 1280px; }
+.app-body > * { min-width: 0; }
+.app-head { display: grid; gap: 8px; }
+.app-head p { color: var(--fg-soft); }
+.drawer-btn { display: none; }
+@media (max-width: 900px) {
+  .app { grid-template-columns: 1fr; }
+  .sidebar { position: fixed; z-index: 50; left: 0; top: 0; bottom: 0; width: min(300px, 86vw); height: auto; transform: translateX(-102%); transition: transform .2s; padding-top: max(20px, env(safe-area-inset-top, 0px)); }
+  .sidebar.open { transform: none; }
+  .drawer-btn { display: inline-flex; }
+  .scrim { position: fixed; inset: 0; background: rgba(7,19,31,.55); z-index: 40; }
+}
+
+/* Indicadores */
+.kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 16px; }
+.kpi { display: grid; gap: 4px; padding: 18px 20px; }
+.kpi .n { font: 600 2rem/1 var(--font-display); color: var(--fg); font-variant-numeric: tabular-nums; }
+.kpi .l { font-size: 0.875rem; color: var(--fg-soft); }
+.card.mist .l { color: var(--fg-soft-alt); }
+
+.progress { height: 10px; border-radius: 999px; background: var(--surface-alt); border: 1px solid var(--line); overflow: hidden; }
+.progress > i { display: block; height: 100%; background: var(--accent); border-radius: 999px; }
+.card.mist .progress { background: var(--surface); }
+.pbar { display: grid; gap: 6px; }
+.pbar .top { display: flex; justify-content: space-between; font-size: 0.8125rem; color: var(--fg-soft); font-variant-numeric: tabular-nums; }
+
+/* Tablas */
+.tablewrap { overflow-x: auto; border: 1px solid var(--line); border-radius: var(--r-card); background: var(--surface); }
+table { width: 100%; border-collapse: collapse; font-size: 0.9375rem; }
+caption { text-align: left; padding: 14px 16px; font: 500 1rem/1.3 var(--font-display); color: var(--fg); }
+th, td { text-align: left; padding: 12px 16px; border-top: 1px solid var(--line); vertical-align: top; }
+thead th { background: var(--surface-alt); color: var(--fg); font: 600 0.75rem/1.2 var(--font-body); text-transform: uppercase; letter-spacing: .06em; border-top: 0; white-space: nowrap; }
+tbody tr:hover { background: var(--surface-alt); }
+tbody tr.sel { background: var(--accent-soft); }
+td .rowbtn { background: none; border: 0; padding: 0; font: 600 0.9375rem/1.4 var(--font-body); color: var(--link); text-align: left; cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
+td small { display: block; color: var(--fg-soft); }
+
+.split { display: grid; grid-template-columns: minmax(0, 1fr) 340px; gap: 24px; align-items: start; }
+.split > * { min-width: 0; }
+@media (max-width: 1180px) { .split { grid-template-columns: 1fr; } }
+.toolbar { display: grid; grid-template-columns: minmax(200px, 2fr) repeat(3, minmax(130px, 1fr)); gap: 12px; align-items: end; }
+@media (max-width: 860px) { .toolbar { grid-template-columns: 1fr 1fr; } .toolbar .field:first-child { grid-column: 1 / -1; } }
+.dl { display: grid; grid-template-columns: max-content 1fr; gap: 8px 16px; margin: 0; font-size: 0.9375rem; }
+.dl dt { color: var(--fg-soft); font-weight: 600; }
+.dl dd { margin: 0; min-width: 0; overflow-wrap: anywhere; }
+.timeline { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; }
+.timeline li { position: relative; padding: 0 0 18px 26px; font-size: 0.9375rem; }
+.timeline li::before { content: ""; position: absolute; left: 4px; top: 6px; width: 10px; height: 10px; border-radius: 50%; background: var(--accent); }
+.timeline li::after { content: ""; position: absolute; left: 8px; top: 18px; bottom: 0; width: 2px; background: var(--line); }
+.timeline li:last-child::after { display: none; }
+.timeline small { display: block; color: var(--fg-soft); }
+
+.notice { display: flex; gap: 12px; padding: 14px 16px; border-radius: var(--r-ctl); border: 1px solid var(--line); background: var(--surface-alt); font-size: 0.9375rem; }
+.notice .icon { margin-top: 3px; }
+.notice.warn { background: var(--warn-bg); border-color: transparent; color: var(--warn); }
+.notice.ok { background: var(--ok-bg); border-color: transparent; color: var(--ok); }
+.notice.bad { background: var(--bad-bg); border-color: transparent; color: var(--bad); }
+.notice p { max-width: none; }
+.notice strong { color: inherit; }
+.card.mist .notice { background: var(--surface); }
+
+.tabs { display: flex; gap: 4px; border-bottom: 1px solid var(--line); overflow-x: auto; }
+.tabs button { background: none; border: 0; padding: 12px 16px; font: 600 0.9375rem/1.2 var(--font-body); color: var(--fg-soft); cursor: pointer; border-bottom: 3px solid transparent; margin-bottom: -1px; white-space: nowrap; }
+.tabs button[aria-selected="true"] { color: var(--fg); border-bottom-color: var(--accent); }
+.tabs button:hover { color: var(--fg); }
+.tabpanel { padding-top: 24px; }
+
+/* Reproductor de lección */
+.player { display: grid; grid-template-columns: 320px minmax(0, 1fr); min-height: calc(100vh - 100px); }
+.player > * { min-width: 0; }
+.outline { border-right: 1px solid var(--line); background: var(--surface-alt); padding: 20px 16px 40px; display: grid; gap: 14px; align-content: start; position: sticky; top: 0; align-self: start; max-height: 100vh; overflow-y: auto; }
+.outline h2 { font-size: 1rem; font-weight: 600; }
+.outline details { border-top: 1px solid var(--line); padding-top: 10px; }
+.outline summary { cursor: pointer; font: 600 0.9375rem/1.35 var(--font-display); color: var(--fg); padding: 4px 0; }
+.outline ol { list-style: none; padding: 0; margin: 6px 0 0; display: grid; gap: 2px; }
+.outline li a { display: flex; gap: 10px; padding: 8px; border-radius: var(--r-ctl); text-decoration: none; color: var(--fg-body); font-size: 0.9375rem; line-height: 1.35; align-items: flex-start; }
+.outline li a:hover { background: var(--surface); }
+.outline li a[aria-current="page"] { background: var(--surface); box-shadow: inset 3px 0 0 var(--accent); font-weight: 600; }
+.st { flex: none; width: 20px; height: 20px; margin-top: 1px; border-radius: 50%; border: 2px solid var(--fg-soft); display: grid; place-items: center; color: #fff; }
+.st .icon { width: 12px; height: 12px; stroke-width: 3; }
+.st.done { background: var(--ok); border-color: var(--ok); }
+:root[data-theme="dark"] .st.done { color: #0E2236; }
+.st.cur { border-color: var(--accent); background: var(--accent); }
+.stage-main { padding: clamp(20px, 3vw, 40px) max(16px, var(--gutter)) 72px; display: grid; gap: 24px; align-content: start; max-width: 960px; }
+.stage-main > * { min-width: 0; }
+@media (max-width: 900px) {
+  .player { grid-template-columns: 1fr; }
+  .outline { position: static; max-height: none; border-right: 0; border-bottom: 1px solid var(--line); }
+}
+.lesson-nav { display: flex; flex-wrap: wrap; gap: 12px; justify-content: space-between; align-items: center; border-top: 1px solid var(--line); padding-top: 20px; }
+.prose { display: grid; gap: 16px; max-width: 68ch; }
+.prose h3 { margin-top: 8px; }
+.frame { border: 1.5px dashed var(--accent); border-radius: var(--r-card); background: var(--surface-alt); min-height: 280px; display: grid; place-items: center; text-align: center; padding: 24px; }
+.frame div { max-width: 52ch; display: grid; gap: 8px; justify-items: center; }
+.quiz { display: grid; gap: 20px; }
+.q { display: grid; gap: 6px; }
+.q.right legend::after { content: "  Correcta"; color: var(--ok); font-weight: 600; }
+.q.wrong legend::after { content: "  Revisar"; color: var(--bad); font-weight: 600; }
+.resources { display: grid; gap: 10px; }
+.res { display: flex; gap: 12px; align-items: center; padding: 12px 14px; border: 1px solid var(--line); border-radius: var(--r-ctl); background: var(--surface); justify-content: space-between; flex-wrap: wrap; }
+.res > span { display: flex; gap: 10px; align-items: center; min-width: 0; }
+
+.legend-list { display: grid; gap: 8px; margin: 0; padding: 0; list-style: none; }
+.matrix td, .matrix th { text-align: center; padding: 8px 10px; font-size: 0.8125rem; }
+.matrix td:first-child, .matrix th:first-child { text-align: left; white-space: nowrap; position: sticky; left: 0; background: var(--surface); }
+.matrix thead th:first-child { background: var(--surface-alt); }
+.matrix td.hl, .matrix th.hl { background: var(--accent-soft); font-weight: 700; color: var(--fg); }
+.matrix td.none { color: var(--fg-soft); }
+
+.site-footer { background: var(--hero-bg); color: var(--hero-soft); padding-block: 56px 32px; }
+.site-footer h2 { color: #fff; font-size: 1rem; font-weight: 500; margin-bottom: 12px; }
+.site-footer a { color: #fff; text-decoration: none; }
+.site-footer a:hover { text-decoration: underline; }
+.site-footer ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; font-size: 0.9375rem; }
+.site-footer .brand { color: #fff; }
+.site-footer .brand b { color: var(--ls-sky); }
+.site-footer .brand .mark { background: rgba(255,255,255,.12); }
+.footer-note { border-top: 1px solid rgba(255,255,255,.2); margin-top: 40px; padding-top: 20px; font-size: 0.8125rem; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 24px; }
+.theme-btn { background: none; border: 1px solid var(--line); color: var(--fg); border-radius: var(--r-ctl); min-height: 40px; padding: 6px 12px; cursor: pointer; font: 600 0.8125rem/1 var(--font-body); display: inline-flex; gap: 6px; align-items: center; }
+.theme-btn:hover { background: var(--surface-alt); }
+.cta-band { background: var(--surface-alt); border-radius: var(--r-card); padding: clamp(24px, 4vw, 40px); display: grid; gap: 14px; align-content: start; border: 1px solid var(--line); }
+.list-plain { list-style: none; padding: 0; margin: 0; display: grid; gap: 0; }
+.list-plain li { display: grid; grid-template-columns: 1fr auto; gap: 4px 16px; padding: 14px 0; border-top: 1px solid var(--line); align-items: center; }
+.list-plain li:first-child { border-top: 0; }
+.list-plain li > div { min-width: 0; }
+.list-plain small { color: var(--fg-soft); display: block; }
+
+h1[tabindex="-1"]:focus, main[tabindex="-1"]:focus { outline: none; }
+.site-footer .theme-btn { color: #fff; border-color: rgba(255,255,255,.5); }
+.site-footer .theme-btn:hover { background: rgba(255,255,255,.12); }
+.site-footer :focus-visible { outline-color: #fff; }
+
+.stages.v { grid-template-columns: 1fr; gap: 18px; }
+.stages.v li { padding: 0 0 0 56px; min-height: 40px; }
+.stages.v .dot { position: absolute; left: 0; top: 0; }
+.stages.v li::before { top: 40px; left: 19px; width: 2px; height: calc(100% - 22px); right: auto; }
+</style>
+<div id="root"></div><noscript><p style="padding:24px">Este prototipo necesita JavaScript.</p></noscript>
+<script>/* Datos de demostración. Todo es ficticio. No hay personas, organizaciones ni documentos reales. */
+const PRINCIPLES = [
+  { code: 'christ', en: 'Centrality of Christ', es: 'Centralidad de Cristo', icon: 'cross',
+    text: 'Cristo es el centro y la medida de todo lo que se forma, se enseña y se hace.' },
+  { code: 'local', en: 'Local Leadership', es: 'Liderazgo local', icon: 'pin',
+    text: 'El desarrollo de líderes ocurre mejor con personas que conocen y sirven a su propio contexto.' },
+  { code: 'life', en: 'Life Transformation', es: 'Transformación de vida', icon: 'refresh',
+    text: 'La meta no es solo conocimiento sino una vida transformada que se vea en el servicio.' }
+];
+const ACTIONS = [
+  { code: 'pray', en: 'Pray', es: 'Orar', icon: 'heart', text: 'Depender de Dios en cada paso del proceso.' },
+  { code: 'envision', en: 'Envision', es: 'Visionar', icon: 'eye', text: 'Ayudar a ver lo que Dios quiere hacer en cada lugar.' },
+  { code: 'nurture', en: 'Nurture', es: 'Cuidar', icon: 'sprout', text: 'Cultivar la vida interior y las relaciones del líder.' },
+  { code: 'train', en: 'Train', es: 'Capacitar', icon: 'book', text: 'Formar de manera intencional y progresiva.' },
+  { code: 'coach', en: 'Coach & Consult', es: 'Acompañar y asesorar', icon: 'compass', text: 'Mentoría y consultoría cercana al contexto.' },
+  { code: 'resource', en: 'Resource', es: 'Proveer recursos', icon: 'package', text: 'Materiales y herramientas útiles y accesibles.' },
+  { code: 'launch', en: 'Launch', es: 'Lanzar', icon: 'launch', text: 'Impulsar nuevas iniciativas ministeriales.' },
+  { code: 'network', en: 'Network', es: 'Conectar', icon: 'network', text: 'Relaciones entre líderes, iglesias y ministerios.' }
+];
+const STAGES = [
+  { code: 'connection', en: 'Connection', es: 'Conexión', text: 'Primer contacto y relación de confianza.' },
+  { code: 'engagement', en: 'Engagement', es: 'Participación', text: 'Involucramiento activo en la formación.' },
+  { code: 'adoption', en: 'Adoption', es: 'Adopción', text: 'El líder y su comunidad hacen suyo lo aprendido.' },
+  { code: 'multiplication', en: 'Multiplication', es: 'Multiplicación', text: 'El líder forma a otros y reproduce el proceso.' }
+];
+const byCode = (arr, c) => arr.find(x => x.code === c);
+
+/* Cursos. Formato de lección: 'Título|tipo|minutos'. Tipos: nativa, scorm, video, actividad, evaluacion. */
+const M = (title, ...ls) => ({ title, lessons: ls.map(l => { const [t, k, m] = l.split('|'); return { title: t, kind: k, min: +m }; }) });
+const COURSES = [
+  { id: 1, title: 'Fundamentos del liderazgo centrado en Cristo', stage: 'connection', actions: ['pray', 'nurture'], principle: 'christ',
+    level: 'Introductorio', modality: 'Autoguiado', format: 'Rise 360', std: 'SCORM 2004', lang: 'ES', hours: 6, instructor: 'Instructor demo',
+    summary: 'Un recorrido inicial para ubicar a Cristo en el centro de la vida y del servicio del líder.',
+    modules: [
+      M('Cristo en el centro', 'Bienvenida y propósito del curso|nativa|8', 'Qué significa que Cristo sea el centro|nativa|15', 'Reflexión personal|actividad|20'),
+      M('El líder y su contexto local', 'Recorrido interactivo|scorm|25', 'Entrevista a un líder local|video|12', 'Lectura complementaria|nativa|10'),
+      M('Vida transformada', 'Los frutos de una vida transformada|nativa|12', 'Evaluación final|evaluacion|15')
+    ] },
+  { id: 2, title: 'Mentoría y acompañamiento de líderes locales', stage: 'engagement', actions: ['coach', 'nurture'], principle: 'local',
+    level: 'Intermedio', modality: 'Con instructor', format: 'Storyline 360', std: 'SCORM 1.2', lang: 'ES', hours: 12, instructor: 'Instructor demo',
+    summary: 'Prácticas de escucha, preguntas y seguimiento para acompañar a otros líderes en su propio contexto.',
+    modules: [
+      M('Qué es acompañar', 'Mentor y guía|nativa|12', 'Escucha activa (simulación)|scorm|30'),
+      M('Conversaciones de acompañamiento', 'Práctica guiada|actividad|40', 'Evaluación del módulo|evaluacion|15')
+    ] },
+  { id: 3, title: 'Formación de formadores', stage: 'adoption', actions: ['train', 'resource'], principle: 'local',
+    level: 'Intermedio', modality: 'Mixto', format: 'Nativo', std: 'Nativo', lang: 'ES', hours: 16, instructor: 'Equipo de formación',
+    summary: 'Diseño de sesiones, uso de recursos y evaluación para quienes enseñan a otros líderes.',
+    modules: [M('Diseñar una sesión', 'Objetivos de aprendizaje|nativa|12', 'Planificar una sesión|actividad|30'), M('Enseñar y evaluar', 'Métodos participativos|nativa|15', 'Evaluación|evaluacion|15')] },
+  { id: 4, title: 'Oración y visión para el ministerio local', stage: 'connection', actions: ['pray', 'envision'], principle: 'christ',
+    level: 'Introductorio', modality: 'Autoguiado', format: 'Nativo', std: 'Nativo', lang: 'ES', hours: 4, instructor: 'Equipo de formación',
+    summary: 'Cómo orar con intención y construir visión junto a la comunidad que se sirve.',
+    modules: [M('Orar con intención', 'Fundamentos|nativa|10', 'Diario de oración|actividad|20'), M('Visión compartida', 'De la oración a la visión|nativa|12', 'Evaluación|evaluacion|10')] },
+  { id: 5, title: 'Lanzamiento de nuevas iniciativas ministeriales', stage: 'adoption', actions: ['launch', 'envision'], principle: 'life',
+    level: 'Avanzado', modality: 'Con instructor', format: 'Storyline 360', std: 'SCORM 2004', lang: 'ES', hours: 14, instructor: 'Instructor demo',
+    summary: 'Pasos para pasar de la idea a un proyecto en marcha, con recursos, equipo y seguimiento.',
+    modules: [M('De la idea al plan', 'Escenario interactivo|scorm|30', 'Plan inicial|actividad|45'), M('Poner en marcha', 'Equipo y recursos|nativa|15', 'Evaluación|evaluacion|15')] },
+  { id: 6, title: 'Redes de líderes y multiplicación', stage: 'multiplication', actions: ['network', 'train'], principle: 'local',
+    level: 'Avanzado', modality: 'Mixto', format: 'Rise 360', std: 'SCORM 2004', lang: 'ES', hours: 10, instructor: 'Equipo de formación',
+    summary: 'Cómo formar redes que sostengan a los líderes y reproduzcan el proceso en nuevos lugares.',
+    modules: [M('Qué es una red', 'Recorrido interactivo|scorm|25', 'Casos de redes|video|15'), M('Multiplicar', 'Formar a otros|nativa|15', 'Evaluación|evaluacion|15')] },
+  { id: 7, title: 'Vida transformada: acompañar procesos de cambio', stage: 'engagement', actions: ['nurture', 'coach'], principle: 'life',
+    level: 'Intermedio', modality: 'Autoguiado', format: 'Rise 360', std: 'SCORM 2004', lang: 'ES', hours: 8, instructor: 'Equipo de formación',
+    summary: 'Reconocer señales de transformación y sostener a las personas en procesos de crecimiento.',
+    modules: [M('Señales de crecimiento', 'Recorrido interactivo|scorm|20', 'Reflexión|actividad|20'), M('Sostener el proceso', 'Seguimiento|nativa|12', 'Evaluación|evaluacion|15')] },
+  { id: 8, title: 'Recursos para la iglesia local', stage: 'engagement', actions: ['resource', 'train'], principle: 'local',
+    level: 'Introductorio', modality: 'Autoguiado', format: 'Nativo', std: 'Nativo', lang: 'ES', hours: 3, instructor: 'Equipo de formación',
+    summary: 'Selección y uso de materiales para la formación de líderes en la congregación.',
+    modules: [M('Elegir recursos', 'Criterios de selección|nativa|10', 'Inventario de recursos|actividad|20'), M('Usar recursos', 'Buenas prácticas|nativa|10', 'Evaluación|evaluacion|10')] }
+];
+
+const QUIZ = [
+  { q: 'Según el curso, ¿qué lugar ocupa Cristo en el desarrollo de líderes?', o: ['Es un tema entre otros', 'Es el centro y la medida de todo', 'Es un requisito inicial que luego se supera'], a: 1 },
+  { q: '¿Por qué el liderazgo local es uno de los tres principios?', o: ['Porque el desarrollo ocurre mejor con líderes que conocen su contexto', 'Porque evita la necesidad de capacitación', 'Porque reduce el acompañamiento'], a: 0 },
+  { q: '¿Qué etapa de desarrollo sigue a Adoption?', o: ['Connection', 'Engagement', 'Multiplication'], a: 2 }
+];
+
+const CATEGORIES = ['Institucional', 'Formación', 'Expedientes', 'Recursos', 'Administrativo', 'Legal'];
+const DOCS = [
+  { id: 1, ref: 'DOC-2026-0001', title: 'Plan estratégico 2026–2028', cat: 'Institucional', vis: 'private', status: 'approved', owner: 'Director demo', dept: 'ADM', updated: '2026-10-28', v: 3, type: 'PDF', size: '1.8 MB', tags: ['estrategia', 'planeación'], parts: [],
+    versions: [['3', '2026-10-28', 'Director demo', 'Ajuste de metas de 2027'], ['2', '2026-07-15', 'Director demo', 'Incorpora comentarios del equipo'], ['1', '2026-03-02', 'Director demo', 'Versión inicial']] },
+  { id: 2, ref: 'DOC-2026-0002', title: 'Guía del participante: primeros pasos', cat: 'Recursos', vis: 'public', status: 'approved', owner: 'Gestor documental demo', dept: 'FOR', updated: '2026-09-10', v: 2, type: 'PDF', size: '940 KB', tags: ['guía', 'bienvenida'], parts: [],
+    versions: [['2', '2026-09-10', 'Gestor documental demo', 'Actualiza pasos de acceso'], ['1', '2026-05-04', 'Gestor documental demo', 'Versión inicial']] },
+  { id: 3, ref: 'DOC-2026-0003', title: 'Plantilla de plan de mentoría', cat: 'Recursos', vis: 'public', status: 'approved', owner: 'Coordinador demo', dept: 'FOR', updated: '2026-08-21', v: 1, type: 'DOCX', size: '120 KB', tags: ['mentoría', 'plantilla'], parts: [],
+    versions: [['1', '2026-08-21', 'Coordinador demo', 'Versión inicial']] },
+  { id: 4, ref: 'DOC-2026-0004', title: 'Convenio de colaboración con ministerio aliado (modelo)', cat: 'Legal', vis: 'private', status: 'review', owner: 'Director demo', dept: 'ADM', updated: '2026-11-05', v: 2, type: 'DOCX', size: '210 KB', tags: ['convenio', 'alianzas'], parts: [],
+    versions: [['2', '2026-11-05', 'Director demo', 'Cláusula de protección de datos'], ['1', '2026-10-12', 'Director demo', 'Borrador']] },
+  { id: 5, ref: 'DOC-2026-0005', title: 'Acta de inscripción – cohorte 2026-A', cat: 'Expedientes', vis: 'private', status: 'approved', owner: 'Responsable de formación demo', dept: 'FOR', updated: '2026-02-18', v: 1, type: 'PDF', size: '310 KB', tags: ['cohorte', 'inscripción'], parts: [1, 2, 3],
+    versions: [['1', '2026-02-18', 'Responsable de formación demo', 'Acta firmada']] },
+  { id: 6, ref: 'DOC-2026-0006', title: 'Política de privacidad y tratamiento de datos', cat: 'Legal', vis: 'public', status: 'approved', owner: 'Director demo', dept: 'ADM', updated: '2026-06-30', v: 2, type: 'PDF', size: '260 KB', tags: ['privacidad', 'datos'], parts: [],
+    versions: [['2', '2026-06-30', 'Director demo', 'Revisión anual'], ['1', '2026-01-12', 'Director demo', 'Versión inicial']] },
+  { id: 7, ref: 'DOC-2026-0007', title: 'Manual de procedimientos de la oficina', cat: 'Administrativo', vis: 'private', status: 'approved', owner: 'Gestor documental demo', dept: 'ADM', updated: '2026-04-09', v: 4, type: 'PDF', size: '2.4 MB', tags: ['procedimientos'], parts: [],
+    versions: [['4', '2026-04-09', 'Gestor documental demo', 'Flujo de solicitudes'], ['3', '2026-02-02', 'Gestor documental demo', 'Flujo de documentos'], ['2', '2025-10-14', 'Gestor documental demo', 'Roles'], ['1', '2025-06-01', 'Gestor documental demo', 'Versión inicial']] },
+  { id: 8, ref: 'DOC-2026-0008', title: 'Informe trimestral de formación (tercer trimestre)', cat: 'Formación', vis: 'private', status: 'review', owner: 'Coordinador demo', dept: 'FOR', updated: '2026-10-20', v: 1, type: 'XLSX', size: '540 KB', tags: ['informe', 'indicadores'], parts: [],
+    versions: [['1', '2026-10-20', 'Coordinador demo', 'Primer borrador']] },
+  { id: 9, ref: 'DOC-2026-0009', title: 'Programa de estudio: Fundamentos del liderazgo centrado en Cristo', cat: 'Formación', vis: 'public', status: 'approved', owner: 'Instructor demo', dept: 'FOR', updated: '2026-07-01', v: 2, type: 'PDF', size: '380 KB', tags: ['programa', 'fundamentos'], parts: [],
+    versions: [['2', '2026-07-01', 'Instructor demo', 'Ajuste de horas'], ['1', '2026-04-19', 'Instructor demo', 'Versión inicial']] },
+  { id: 10, ref: 'DOC-2026-0010', title: 'Constancia de asistencia – Ana Lucía Benítez', cat: 'Expedientes', vis: 'private', status: 'approved', owner: 'Responsable de formación demo', dept: 'FOR', updated: '2026-09-02', v: 1, type: 'PDF', size: '95 KB', tags: ['constancia'], parts: [1],
+    versions: [['1', '2026-09-02', 'Responsable de formación demo', 'Emitida']] },
+  { id: 11, ref: 'DOC-2026-0011', title: 'Estudio: redes de líderes en comunidades rurales', cat: 'Recursos', vis: 'public', status: 'approved', owner: 'Equipo de publicaciones demo', dept: 'PUB', updated: '2026-10-02', v: 1, type: 'PDF', size: '3.1 MB', tags: ['redes', 'estudio'], parts: [],
+    versions: [['1', '2026-10-02', 'Equipo de publicaciones demo', 'Publicación inicial']] },
+  { id: 12, ref: 'DOC-2026-0012', title: 'Formato de solicitud de acompañamiento', cat: 'Administrativo', vis: 'public', status: 'approved', owner: 'Gestor documental demo', dept: 'ADM', updated: '2026-03-14', v: 1, type: 'PDF', size: '150 KB', tags: ['formato', 'solicitud'], parts: [],
+    versions: [['1', '2026-03-14', 'Gestor documental demo', 'Versión inicial']] }
+];
+const DEPTS = { ADM: 'Administración', FOR: 'Formación', ACO: 'Acompañamiento', PUB: 'Publicaciones' };
+
+const PEOPLE = [
+  { id: 1, name: 'Ana Lucía Benítez', org: 'Iglesia Comunitaria Esperanza', country: 'Colombia', stage: 'adoption', status: 'Activa', dept: 'FOR', email: 'ana.benitez@ejemplo.org', phone: '+57 300 000 0001', since: '2026-02-18',
+    enr: [[1, 100, 'Completado', ''], [2, 45, 'En curso', '2026-12-15'], [4, 100, 'Completado', '']], certs: [[1, 'Aprobación', '2026-04-22', 'LS-A1B2-0001'], [4, 'Participación', '2026-06-10', 'LS-A1B2-0004']],
+    notes: [['2026-10-02', 'Coordinador demo', 'Interesada en formar un grupo de líderes jóvenes en su congregación.'], ['2026-06-12', 'Responsable de formación demo', 'Completó los dos primeros cursos con constancia.']] },
+  { id: 2, name: 'Carlos Mendoza', org: 'Ministerio Camino Nuevo', country: 'México', stage: 'engagement', status: 'Activo', dept: 'FOR', email: 'carlos.mendoza@ejemplo.org', phone: '+52 55 0000 0002', since: '2026-02-18',
+    enr: [[1, 62, 'En curso', '2026-12-01']], certs: [], notes: [['2026-09-15', 'Responsable de formación demo', 'Solicitó prórroga de dos semanas.']] },
+  { id: 3, name: 'Rut Salazar', org: 'Red de Iglesias del Valle', country: 'Perú', stage: 'connection', status: 'Activa', dept: 'ACO', email: 'rut.salazar@ejemplo.org', phone: '+51 900 000 003', since: '2026-03-04',
+    enr: [[4, 30, 'En curso', '2026-12-20']], certs: [], notes: [] },
+  { id: 4, name: 'Daniel Ocampo', org: 'Iglesia Vida Plena', country: 'Chile', stage: 'multiplication', status: 'Activo', dept: 'ACO', email: 'daniel.ocampo@ejemplo.org', phone: '+56 9 0000 0004', since: '2025-08-11',
+    enr: [[6, 80, 'En curso', '2026-11-30'], [3, 100, 'Completado', '']], certs: [[3, 'Aprobación', '2026-03-30', 'LS-D4E5-0003']], notes: [['2026-08-01', 'Coordinador demo', 'Forma dos grupos nuevos con apoyo de la red regional.']] },
+  { id: 5, name: 'Priscila Duarte', org: 'Comunidad Fe y Vida', country: 'Paraguay', stage: 'engagement', status: 'En pausa', dept: 'FOR', email: 'priscila.duarte@ejemplo.org', phone: '+595 981 000 005', since: '2026-05-20',
+    enr: [[7, 15, 'En pausa', '2027-01-15']], certs: [], notes: [['2026-10-10', 'Responsable de formación demo', 'Pausa solicitada por motivos de agenda. Retoma en enero.']] },
+  { id: 6, name: 'Esteban Lagos', org: 'Iglesia Monte Sión', country: 'Ecuador', stage: 'adoption', status: 'Activo', dept: 'ACO', email: 'esteban.lagos@ejemplo.org', phone: '+593 99 000 0006', since: '2026-01-27',
+    enr: [[5, 55, 'En curso', '2026-12-10'], [2, 100, 'Completado', '']], certs: [[2, 'Aprobación', '2026-08-18', 'LS-F6G7-0002']], notes: [] }
+];
+
+const REQS = [
+  { ref: 'SOL-2026-0031', kind: 'Inscripción', subject: 'Inscripción a Mentoría y acompañamiento', who: 'Rut Salazar', to: 'Coordinador demo', dept: 'FOR', status: 'in_progress', pri: 'Normal', due: '2026-11-22', notes: [['2026-11-10', 'Coordinador demo', 'Falta confirmar cohorte disponible.']] },
+  { ref: 'SOL-2026-0032', kind: 'Certificado', subject: 'Constancia de participación solicitada', who: 'Ana Lucía Benítez', to: 'Responsable de formación demo', dept: 'FOR', status: 'resolved', pri: 'Normal', due: '2026-11-12', notes: [] },
+  { ref: 'SOL-2026-0033', kind: 'Acompañamiento', subject: 'Acompañamiento para iglesia en zona rural', who: 'Persona externa (demo)', to: 'Sin asignar', dept: 'ACO', status: 'received', pri: 'Alta', due: '2026-11-25', notes: [] },
+  { ref: 'SOL-2026-0034', kind: 'Documento', subject: 'Copia del acta de la cohorte 2026-A', who: 'Carlos Mendoza', to: 'Gestor documental demo', dept: 'ADM', status: 'waiting_info', pri: 'Baja', due: '2026-11-30', notes: [['2026-11-13', 'Gestor documental demo', 'Se pidió confirmar el motivo de la solicitud.']] },
+  { ref: 'SOL-2026-0035', kind: 'Información', subject: 'Programas disponibles para equipos pastorales', who: 'Persona externa (demo)', to: 'Coordinador demo', dept: 'FOR', status: 'in_review', pri: 'Normal', due: '2026-11-20', notes: [] },
+  { ref: 'SOL-2026-0036', kind: 'Inscripción', subject: 'Cambio de cohorte', who: 'Priscila Duarte', to: 'Responsable de formación demo', dept: 'FOR', status: 'in_progress', pri: 'Normal', due: '2026-12-05', notes: [] },
+  { ref: 'SOL-2026-0037', kind: 'Documento', subject: 'Actualizar ficha de datos de contacto', who: 'Esteban Lagos', to: 'Gestor documental demo', dept: 'ADM', status: 'closed', pri: 'Baja', due: '2026-10-30', notes: [] },
+  { ref: 'SOL-2026-0038', kind: 'Otro', subject: 'Invitación a un encuentro regional', who: 'Persona externa (demo)', to: 'Sin asignar', dept: 'ACO', status: 'received', pri: 'Normal', due: '2026-12-01', notes: [] }
+];
+const REQ_STATUS = { received: ['Recibida', 'warn'], in_review: ['En revisión', ''], in_progress: ['En proceso', 'stage'], waiting_info: ['Pendiente de información', 'warn'], resolved: ['Resuelta', 'ok'], closed: ['Cerrada', ''] };
+const DOC_STATUS = { draft: ['Borrador', ''], review: ['En revisión', 'warn'], approved: ['Aprobado', 'ok'], archived: ['Archivado', ''] };
+
+const USERS = [
+  { name: 'Superadministrador demo', role: 'superadmin', dept: 'ADM', mfa: true },
+  { name: 'Director demo', role: 'director', dept: 'ADM', mfa: true },
+  { name: 'Coordinador demo', role: 'coordinador', dept: 'FOR', mfa: true },
+  { name: 'Gestor documental demo', role: 'gestor', dept: 'ADM', mfa: true },
+  { name: 'Responsable de formación demo', role: 'resp', dept: 'FOR', mfa: false },
+  { name: 'Instructor demo', role: 'instructor', dept: 'FOR', mfa: false },
+  { name: 'Ana Lucía Benítez', role: 'participante', dept: 'FOR', mfa: false },
+  { name: 'Persona externa (demo)', role: 'externo', dept: '', mfa: false }
+];
+const LOG = [
+  ['2026-11-16 08:42', 'Gestor documental demo', 'document.update', 'DOC-2026-0004 versión 2'],
+  ['2026-11-16 08:15', 'Coordinador demo', 'participant.read', 'Expediente de Carlos Mendoza'],
+  ['2026-11-15 17:03', 'Ana Lucía Benítez', 'certificate.download', 'LS-A1B2-0004'],
+  ['2026-11-15 11:27', 'Director demo', 'report.export', 'Informe trimestral'],
+  ['2026-11-14 16:50', 'Superadministrador demo', 'user.role.grant', 'Instructor demo → instructor'],
+  ['2026-11-14 09:12', 'Desconocido', 'login.failed', 'Tres intentos desde la misma red']
+];
+
+/* Roles y permisos. Niveles: T total, P propio, D de su departamento, L lectura, '-' sin acceso. */
+const ROLES = [
+  { id: 'superadmin', name: 'Superadministrador', short: 'Super', person: 'Superadministrador demo' },
+  { id: 'director', name: 'Director', short: 'Director', person: 'Director demo' },
+  { id: 'coordinador', name: 'Coordinador de formación', short: 'Coord.', person: 'Coordinador demo' },
+  { id: 'gestor', name: 'Gestor documental', short: 'Gestor', person: 'Gestor documental demo' },
+  { id: 'resp', name: 'Responsable de departamento', short: 'Resp. dpto.', person: 'Responsable de formación demo' },
+  { id: 'instructor', name: 'Instructor', short: 'Instructor', person: 'Instructor demo' },
+  { id: 'participante', name: 'Participante', short: 'Particip.', person: 'Ana Lucía Benítez' },
+  { id: 'externo', name: 'Usuario externo', short: 'Externo', person: 'Persona externa (demo)' }
+];
+const MODULES = [
+  ['Portal público', 'T T T T T T T T'],
+  ['Recursos públicos', 'T T T T L L L L'],
+  ['Campus: mi aprendizaje', '- - L - - P P -'],
+  ['Campus: catálogo e inscripción', 'T L T - - L P L'],
+  ['Campus: gestión de cursos', 'T L T - - P - -'],
+  ['Certificados', 'T L T L - P P -'],
+  ['Oficina: documentos públicos', 'T T T T T L L L'],
+  ['Oficina: documentos privados', 'T L L T D - P -'],
+  ['Oficina: participantes y expedientes', 'T L T L D L P -'],
+  ['Oficina: solicitudes', 'T L T T D - P P'],
+  ['Reportes administrativos', 'T T T L D - - -'],
+  ['Administración: usuarios y roles', 'T L - - - - - -'],
+  ['Registro de actividad', 'T L - - - - - -'],
+  ['Integraciones y copias de seguridad', 'T - - - - - - -']
+].map(([m, s]) => ({ module: m, lv: s.split(' ') }));
+
+/* Núcleo: iconos, estado, utilidades y control de acceso de demostración. */
+const ICONS = {
+  menu: '<path d="M4 6h16M4 12h16M4 18h16"/>',
+  x: '<path d="M6 6l12 12M18 6L6 18"/>',
+  search: '<circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/>',
+  book: '<path d="M2 5h6a4 4 0 0 1 4 4v11a3 3 0 0 0-3-3H2z"/><path d="M22 5h-6a4 4 0 0 0-4 4v11a3 3 0 0 1 3-3h7z"/>',
+  folder: '<path d="M3 6a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>',
+  file: '<path d="M7 3h7l5 5v13H7z"/><path d="M14 3v5h5"/>',
+  users: '<circle cx="9" cy="8" r="3"/><path d="M3 20v-1a5 5 0 0 1 5-5h2a5 5 0 0 1 5 5v1"/><circle cx="17" cy="9" r="2.5"/><path d="M17 14a4 4 0 0 1 4 4v2"/>',
+  shield: '<path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/>',
+  check: '<path d="M5 12l5 5 9-10"/>',
+  right: '<path d="M5 12h14M13 6l6 6-6 6"/>',
+  left: '<path d="M19 12H5M11 6l-6 6 6 6"/>',
+  home: '<path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/>',
+  award: '<circle cx="12" cy="9" r="6"/><path d="M8.5 14L7 21l5-3 5 3-1.5-7"/>',
+  download: '<path d="M12 4v11M7 11l5 5 5-5M5 20h14"/>',
+  upload: '<path d="M12 16V5M7 9l5-5 5 5M5 20h14"/>',
+  lock: '<rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/>',
+  globe: '<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18 14 14 0 0 1 0-18"/>',
+  clock: '<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
+  play: '<path d="M8 5l11 7-11 7z"/>',
+  info: '<circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/>',
+  warn: '<path d="M12 3l10 18H2z"/><path d="M12 10v5M12 18h.01"/>',
+  filter: '<path d="M3 5h18l-7 8v6l-4 2v-8z"/>',
+  clip: '<path d="M9 4h6v3H9z"/><path d="M7 5H5v16h14V5h-2M9 12h6M9 16h4"/>',
+  chart: '<path d="M4 20V4M4 20h16M8 16v-5M12 16V8M16 16v-3"/>',
+  sliders: '<path d="M4 7h10M18 7h2M4 17h2M10 17h10"/><circle cx="16" cy="7" r="2"/><circle cx="8" cy="17" r="2"/>',
+  user: '<circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/>',
+  plus: '<path d="M12 5v14M5 12h14"/>',
+  layers: '<path d="M12 3l9 5-9 5-9-5z"/><path d="M3 13l9 5 9-5"/>',
+  sun: '<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M5 5l1.5 1.5M17.5 17.5L19 19M5 19l1.5-1.5M17.5 6.5L19 5"/>',
+  cross: '<path d="M12 3v18M7 8h10"/>',
+  pin: '<path d="M12 21s-6-5.5-6-11a6 6 0 0 1 12 0c0 5.5-6 11-6 11z"/><circle cx="12" cy="10" r="2"/>',
+  refresh: '<path d="M20 12a8 8 0 1 1-2.5-5.8"/><path d="M20 4v5h-5"/>',
+  heart: '<path d="M12 20s-7-4.5-7-10a4 4 0 0 1 7-2.5A4 4 0 0 1 19 10c0 5.5-7 10-7 10z"/>',
+  eye: '<path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/>',
+  sprout: '<path d="M12 21v-9"/><path d="M12 12c0-4 3-6 7-6 0 4-3 6-7 6z"/><path d="M12 15c0-3-2-5-6-5 0 3 2 5 6 5z"/>',
+  compass: '<circle cx="12" cy="12" r="9"/><path d="M15.5 8.5l-2 5-5 2 2-5z"/>',
+  package: '<path d="M3 8l9-5 9 5v8l-9 5-9-5z"/><path d="M3 8l9 5 9-5M12 13v8"/>',
+  launch: '<circle cx="12" cy="12" r="9"/><path d="M9 15l6-6M10 9h5v5"/>',
+  network: '<circle cx="12" cy="5" r="2.5"/><circle cx="5" cy="18" r="2.5"/><circle cx="19" cy="18" r="2.5"/><path d="M12 7.5v4M12 11.5l-6 4.5M12 11.5l6 4.5"/>',
+  chev: '<path d="M6 9l6 6 6-6"/>',
+  video: '<rect x="3" y="6" width="13" height="12" rx="2"/><path d="M16 10l5-3v10l-5-3"/>',
+  pen: '<path d="M4 20l4-1 11-11-3-3L5 16z"/>',
+  list: '<path d="M8 6h12M8 12h12M8 18h12M4 6h.01M4 12h.01M4 18h.01"/>'
+};
+const ic = (n, extra = '') => `<svg class="icon ${extra}" viewBox="0 0 24 24" aria-hidden="true" focusable="false">${ICONS[n] || ''}</svg>`;
+
+/* Almacenamiento local con respaldo en memoria (puede no estar disponible). */
+const mem = {};
+const store = {
+  get(k, d) { try { const v = localStorage.getItem(k); return v === null ? (k in mem ? mem[k] : d) : JSON.parse(v); } catch (e) { return k in mem ? mem[k] : d; } },
+  set(k, v) { mem[k] = v; try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) { /* sin almacenamiento */ } }
+};
+
+const S = {
+  role: store.get('ls-role', 'participante'),
+  done: store.get('ls-done', null),
+  quiz: store.get('ls-quiz', {}),
+  cat: { q: '', stage: [], action: [], format: [], level: [], mod: [] },
+  doc: { q: '', cat: '', vis: '', status: '', sel: null },
+  req: { sel: null },
+  tab: 'datos'
+};
+/* Avance inicial de la participante de demostración. */
+if (!S.done) {
+  S.done = {};
+  [1, 4].forEach(cid => COURSES.find(c => c.id === cid).modules.forEach((m, mi) => m.lessons.forEach((l, li) => { S.done[`${cid}-${mi + 1}-${li + 1}`] = true; })));
+  S.done['2-1-1'] = true; S.done['2-1-2'] = true;
+  store.set('ls-done', S.done);
+}
+
+const esc = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const course = id => COURSES.find(c => c.id === +id);
+const person = id => PEOPLE.find(p => p.id === +id);
+const fmtDate = d => { if (!d) return '–'; const [y, m, dd] = d.split('-'); const M = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre']; return `${+dd} de ${M[+m - 1]} de ${y}`; };
+const lessonKey = (c, m, l) => `${c}-${m}-${l}`;
+const allLessons = c => c.modules.flatMap((m, mi) => m.lessons.map((l, li) => ({ ...l, mi: mi + 1, li: li + 1, key: lessonKey(c.id, mi + 1, li + 1) })));
+const courseProgress = c => { const ls = allLessons(c); return ls.length ? Math.round(100 * ls.filter(l => S.done[l.key]).length / ls.length) : 0; };
+const KIND = { nativa: ['Lección', 'book'], scorm: ['Paquete SCORM', 'layers'], video: ['Vídeo', 'video'], actividad: ['Actividad', 'pen'], evaluacion: ['Evaluación', 'check'] };
+
+/* Control de acceso de demostración. En producción lo decide la API con la sesión real. */
+const roleIdx = () => ROLES.findIndex(r => r.id === S.role);
+const lv = name => { const m = MODULES.find(x => x.module === name); return m ? m.lv[roleIdx()] : '-'; };
+const can = name => lv(name) !== '-';
+const curRole = () => ROLES[roleIdx()];
+const DEPT_OF_ROLE = 'FOR';
+const INSTRUCTOR_COURSES = [1, 2, 5];
+
+function visibleDocs() {
+  const r = S.role;
+  return DOCS.filter(d => {
+    if (d.vis === 'public') return true;
+    if (['superadmin', 'director', 'coordinador', 'gestor'].includes(r)) return true;
+    if (r === 'resp') return d.dept === DEPT_OF_ROLE;
+    if (r === 'participante') return d.parts.includes(1);
+    return false;
+  });
+}
+function visiblePeople() {
+  const r = S.role;
+  if (!can('Oficina: participantes y expedientes')) return [];
+  if (['superadmin', 'director', 'coordinador', 'gestor'].includes(r)) return PEOPLE;
+  if (r === 'resp') return PEOPLE.filter(p => p.dept === DEPT_OF_ROLE);
+  if (r === 'instructor') return PEOPLE.filter(p => p.enr.some(e => INSTRUCTOR_COURSES.includes(e[0])));
+  if (r === 'participante') return PEOPLE.filter(p => p.id === 1);
+  return [];
+}
+function visibleReqs() {
+  const r = S.role;
+  if (!can('Oficina: solicitudes')) return [];
+  if (r === 'resp') return REQS.filter(q => q.dept === DEPT_OF_ROLE);
+  if (r === 'participante') return REQS.filter(q => q.who === 'Ana Lucía Benítez');
+  if (r === 'externo') return REQS.filter(q => q.who === 'Persona externa (demo)');
+  return REQS;
+}
+function canWriteDoc(d) { return S.role === 'superadmin' || S.role === 'gestor' || (S.role === 'resp' && d.dept === DEPT_OF_ROLE); }
+
+/* Marcadores de estado visibles */
+const tagDemo = '<span class="tag demo" title="Contenido de demostración con datos ficticios">Demo</span>';
+const tagF3 = (p = 'Fase 3') => `<span class="tag f3" title="Aún sin conexión a servidor">${p}</span>`;
+const tagReal = '<span class="tag real" title="Funciona en el navegador con los datos de demostración">Funciona</span>';
+const disabledBtn = (label, phase = 'Fase 3', cls = '', icon = '') => `<button type="button" class="btn sec sm ${cls}" disabled aria-disabled="true">${icon ? ic(icon) : ''}${label} ${tagF3(phase)}</button>`;
+const stageChip = code => `<span class="chip stage">${esc(byCode(STAGES, code).en)}</span>`;
+const bar = pct => `<div class="pbar"><div class="top"><span>Avance</span><span>${pct} %</span></div><div class="progress" role="progressbar" aria-valuenow="${pct}" aria-valuemin="0" aria-valuemax="100" aria-label="Avance del curso"><i style="width:${pct}%"></i></div></div>`;
+
+const plural = (n, w) => `${n} ${w}${n === 1 ? '' : 's'}`;
+
+/* Vistas del portal institucional (público). */
+const PUB_NAV = [
+  ['inicio', 'Inicio'], ['quienes-somos', 'Quiénes somos'], ['estrategia', 'Estrategia'], ['formacion', 'Formación'],
+  ['recursos', 'Recursos'], ['publicaciones', 'Publicaciones'], ['historias', 'Historias'], ['contacto', 'Contacto']
+];
+const MARK = '<span class="mark"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v18M6 9l6-6 6 6M7 21h10"/></svg></span>';
+const brand = (href = '#inicio') => `<a class="brand" href="${href}" aria-label="LeaderSource, ir al inicio">${MARK}<span>Leader<b>Source</b></span></a>`;
+
+function courseCard(c) {
+  const st = byCode(STAGES, c.stage);
+  return `<article class="card course-card">
+    <div class="row">${stageChip(c.stage)}<span class="chip">${esc(c.level)}</span></div>
+    <h3><a href="#curso-${c.id}">${esc(c.title)}</a></h3>
+    <p class="muted">${esc(c.summary)}</p>
+    <div class="meta"><span>${ic('clock')} ${c.hours} h</span><span>${ic('layers')} ${esc(c.format)}</span><span>${ic('users')} ${esc(c.modality)}</span></div>
+    <div class="row" aria-label="Acciones de la estrategia">${c.actions.map(a => `<span class="chip">${esc(byCode(ACTIONS, a).en)}</span>`).join('')}</div>
+    <div><a class="btn sec sm" href="#curso-${c.id}">Ver programa ${ic('right')}</a></div>
+  </article>`;
+}
+
+function viewInicio() {
+  const recent = DOCS.filter(d => d.vis === 'public').sort((a, b) => b.updated.localeCompare(a.updated)).slice(0, 4);
+  return `
+  <section class="hero" aria-labelledby="h-hero"><div class="wrap hero-grid">
+    <div class="stack" style="gap:24px">
+      <span class="eyebrow">Desarrollo de líderes</span>
+      <h1 id="h-hero" tabindex="-1">Líderes formados en su contexto. Iglesias que se multiplican.</h1>
+      <p class="lead">LeaderSource acompaña a líderes, iglesias y ministerios con formación, recursos y acompañamiento cercano, con Cristo en el centro y desde lo local.</p>
+      <div class="row"><a class="btn on-dark" href="#estrategia">Conocer la estrategia ${ic('right')}</a><a class="btn sec on-dark" href="#formacion">Explorar programas</a></div>
+    </div>
+    <div class="ph" role="img" aria-label="Marcador de fotografía pendiente"><div><strong>Fotografía documental pendiente</strong>Encuadre sugerido: un mentor y un líder local conversando en su comunidad, luz natural, sin poses.</div></div>
+  </div></section>
+
+  <section class="section" aria-labelledby="h-pres"><div class="wrap grid g2" style="gap:48px;align-items:center">
+    <div class="stack" style="gap:20px">
+      <span class="eyebrow">Quiénes somos ${tagDemo}</span>
+      <h2 id="h-pres">Una organización dedicada a formar y acompañar líderes cristianos</h2>
+      <p>Trabajamos con líderes, iglesias y ministerios para que la formación llegue a donde está el liderazgo: a cada comunidad y a cada contexto. Combinamos programas de capacitación, recursos abiertos y acompañamiento personal.</p>
+      <p class="muted">Texto provisional de la maqueta. La presentación oficial la define la dirección.</p>
+      <div><a class="btn sec" href="#quienes-somos">Conocer más</a></div>
+    </div>
+    <figure class="quote italic" style="margin:0"><p>Lo que has oído de mí ante muchos testigos, esto encarga a hombres fieles que sean idóneos para enseñar también a otros.</p><cite>2 Timoteo 2:2 (RVR1960)</cite></figure>
+  </div></section>
+
+  <section class="section alt" aria-labelledby="h-prin"><div class="wrap">
+    <div class="section-head"><span class="eyebrow">Tres principios</span><h2 id="h-prin">Lo que orienta todo lo que hacemos</h2></div>
+    <div class="grid g3">${PRINCIPLES.map((p, i) => `
+      <article class="card principle"><div class="ico-box">${ic(p.icon)}</div><span class="num">Principio ${i + 1}</span><h3>${esc(p.en)}</h3><p><strong>${esc(p.es)}.</strong> ${esc(p.text)}</p></article>`).join('')}
+    </div>
+    <p style="margin-top:28px"><a href="#estrategia">Ver las ocho acciones y las cuatro etapas</a></p>
+  </div></section>
+
+  <section class="section" aria-labelledby="h-prog"><div class="wrap">
+    <div class="section-head"><span class="eyebrow">Programas destacados</span><h2 id="h-prog">Formación para cada etapa del camino</h2></div>
+    <div class="grid g3">${[1, 2, 6].map(id => courseCard(course(id))).join('')}</div>
+    <div style="margin-top:28px"><a class="btn" href="#formacion">Ver todos los programas ${ic('right')}</a></div>
+  </div></section>
+
+  <section class="section alt" aria-labelledby="h-rec"><div class="wrap grid g2" style="gap:48px;align-items:start">
+    <div class="stack"><span class="eyebrow">Recursos recientes</span><h2 id="h-rec">Materiales abiertos para líderes y equipos</h2><p class="muted">Documentos autorizados para consulta y descarga. Los recursos de esta lista son ejemplos.</p><div><a class="btn sec" href="#recursos">Ir al repositorio público</a></div></div>
+    <ul class="list-plain card" style="padding:8px 24px">${recent.map(d => `
+      <li><div><strong style="color:var(--fg)">${esc(d.title)}</strong><small>${esc(d.cat)} · ${esc(d.type)} · actualizado el ${fmtDate(d.updated)}</small></div><a href="#recursos">Ver</a></li>`).join('')}
+    </ul>
+  </div></section>
+
+  <section class="section" aria-labelledby="h-cta"><div class="wrap">
+    <h2 id="h-cta" class="sr-only">Cómo participar</h2>
+    <div class="grid g3">
+      <div class="cta-band"><div class="ico-box">${ic('book')}</div><h3>Formarse</h3><p>Ingrese al campus y continúe sus cursos o inscríbase en un programa nuevo.</p><div><a class="btn" href="#acceso">Acceder al campus</a></div></div>
+      <div class="cta-band"><div class="ico-box">${ic('compass')}</div><h3>Pedir acompañamiento</h3><p>Cuéntenos su contexto y le propondremos un camino de mentoría o asesoría.</p><div><a class="btn sec" href="#contacto">Enviar solicitud</a></div></div>
+      <div class="cta-band"><div class="ico-box">${ic('network')}</div><h3>Colaborar</h3><p>Conecte su iglesia o ministerio con la red de LeaderSource.</p><div><a class="btn sec" href="#contacto">Escribirnos</a></div></div>
+    </div>
+  </div></section>`;
+}
+
+function viewEstrategia() {
+  return `
+  <div class="page-head"><div class="wrap"><span class="eyebrow">Estrategia</span><h1 id="h-est" tabindex="-1">Tres principios, ocho acciones y cuatro etapas</h1>
+    <p>La estrategia ordena la formación, los recursos y el acompañamiento. Cada programa y cada recurso indica a qué acciones y a qué etapa sirve.</p>
+    <div>${tagDemo} <span class="muted" style="font-size:.875rem">Las descripciones son texto provisional pendiente de confirmación.</span></div></div></div>
+
+  <section class="section" aria-labelledby="h-p"><div class="wrap">
+    <div class="section-head"><h2 id="h-p">Tres principios</h2><p>Lo que no cambia, sin importar el programa.</p></div>
+    <div class="grid g3">${PRINCIPLES.map((p, i) => `<article class="card principle"><div class="ico-box">${ic(p.icon)}</div><span class="num">Principio ${i + 1}</span><h3>${esc(p.en)}</h3><p><strong>${esc(p.es)}.</strong> ${esc(p.text)}</p></article>`).join('')}</div>
+  </div></section>
+
+  <section class="section alt" aria-labelledby="h-a"><div class="wrap">
+    <div class="section-head"><h2 id="h-a">Ocho acciones</h2><p>Lo que hacemos con los líderes y las comunidades. Cada una enlaza con los programas que la trabajan.</p></div>
+    <div class="grid g4">${ACTIONS.map(a => `
+      <a class="card link action" href="#formacion" data-filter="action:${a.code}"><div class="ico-box">${ic(a.icon)}</div><h4>${esc(a.en)}</h4><p><strong>${esc(a.es)}.</strong> ${esc(a.text)}</p><span class="muted" style="font-size:.8125rem">${plural(COURSES.filter(c => c.actions.includes(a.code)).length, 'programa')}</span></a>`).join('')}
+    </div>
+  </div></section>
+
+  <section class="section" aria-labelledby="h-s"><div class="wrap">
+    <div class="section-head"><h2 id="h-s">Cuatro etapas de desarrollo</h2><p>El camino de un líder y de su comunidad, de la primera conversación a la multiplicación.</p></div>
+    <ol class="stages">${STAGES.map((s, i) => `
+      <li><span class="dot" aria-hidden="true">${i + 1}</span><h3>${esc(s.en)}</h3><p><strong>${esc(s.es)}.</strong> ${esc(s.text)}</p><a href="#formacion" data-filter="stage:${s.code}">${plural(COURSES.filter(c => c.stage === s.code).length, 'programa')} en esta etapa</a></li>`).join('')}
+    </ol>
+  </div></section>
+
+  <section class="section alt"><div class="wrap grid g2" style="gap:40px;align-items:center">
+    <div class="stack"><h2>Dónde se ve la estrategia en la plataforma</h2>
+    <ul class="legend-list"><li>${ic('check')} Cada programa del catálogo indica su etapa y sus acciones.</li><li>${ic('check')} El campus muestra en qué etapa está la trayectoria del participante.</li><li>${ic('check')} Cada expediente registra la etapa vigente.</li><li>${ic('check')} Los recursos se pueden filtrar por principio y por acción.</li></ul></div>
+    <div class="cta-band"><h3>Explore los programas</h3><p>Filtre por etapa o por acción para encontrar el siguiente paso.</p><div><a class="btn" href="#formacion">Ir al catálogo</a></div></div>
+  </div></section>`;
+}
+
+function catFiltered() {
+  const f = S.cat, q = f.q.trim().toLowerCase();
+  return COURSES.filter(c => (!q || (c.title + ' ' + c.summary).toLowerCase().includes(q))
+    && (!f.stage.length || f.stage.includes(c.stage))
+    && (!f.action.length || c.actions.some(a => f.action.includes(a)))
+    && (!f.format.length || f.format.includes(c.format))
+    && (!f.level.length || f.level.includes(c.level))
+    && (!f.mod.length || f.mod.includes(c.modality)));
+}
+function catGroup(key, legend, opts) {
+  return `<fieldset><legend>${legend}</legend>${opts.map(([v, l]) => `<label class="check"><input type="checkbox" data-cat="${key}" value="${esc(v)}" ${S.cat[key].includes(v) ? 'checked' : ''}> <span>${esc(l)}</span></label>`).join('')}</fieldset>`;
+}
+function catResults() {
+  const r = catFiltered();
+  return `<p class="muted" role="status" aria-live="polite" style="margin-bottom:16px"><strong style="color:var(--fg)">${r.length}</strong> ${r.length === 1 ? 'programa encontrado' : 'programas encontrados'}</p>` +
+    (r.length ? `<div class="grid g2">${r.map(courseCard).join('')}</div>` : `<div class="card mist stack"><h3>No hay programas con esos filtros</h3><p>Pruebe con menos filtros o con otra palabra de búsqueda.</p><div><button class="btn" type="button" data-clear>Limpiar filtros</button></div></div>`);
+}
+function viewFormacion() {
+  return `
+  <div class="page-head"><div class="wrap"><span class="eyebrow">Programas de formación</span><h1 id="h-for" tabindex="-1">Catálogo de formación</h1><p>Filtre por etapa de desarrollo, acción de la estrategia, formato, nivel y modalidad. ${tagReal}</p></div></div>
+  <section class="section" style="padding-top:40px"><div class="wrap catalog">
+    <form class="filters card" onsubmit="return false" aria-label="Filtros del catálogo">
+      <div class="field"><label for="cat-q">Buscar</label><input id="cat-q" type="search" placeholder="Palabra o tema" autocomplete="off"></div>
+      ${catGroup('stage', 'Etapa', STAGES.map(s => [s.code, `${s.en} · ${s.es}`]))}
+      ${catGroup('action', 'Acción', ACTIONS.map(a => [a.code, `${a.en}`]))}
+      ${catGroup('format', 'Formato', [...new Set(COURSES.map(c => c.format))].map(v => [v, v]))}
+      ${catGroup('level', 'Nivel', ['Introductorio', 'Intermedio', 'Avanzado'].map(v => [v, v]))}
+      ${catGroup('mod', 'Modalidad', ['Autoguiado', 'Con instructor', 'Mixto'].map(v => [v, v]))}
+      <button class="btn sec sm" type="button" data-clear>Limpiar filtros</button>
+    </form>
+    <div id="cat-results">${catResults()}</div>
+  </div></section>`;
+}
+
+function viewRecursos() {
+  const docs = DOCS.filter(d => d.vis === 'public');
+  return `
+  <div class="page-head"><div class="wrap"><span class="eyebrow">Recursos</span><h1 id="h-rec" tabindex="-1">Repositorio público</h1><p>Materiales autorizados para consulta y descarga. Los documentos privados no aparecen aquí. ${tagDemo}</p></div></div>
+  <section class="section" style="padding-top:40px"><div class="wrap stack" style="gap:24px">
+    <div class="notice">${ic('info')}<p>La descarga se conecta en la Fase 3: el servidor comprueba que el documento sea público y entrega una dirección firmada de corta duración. Los archivos de esta maqueta no existen.</p></div>
+    <div class="tablewrap"><table><caption class="sr-only">Documentos públicos</caption>
+      <thead><tr><th scope="col">Título</th><th scope="col">Categoría</th><th scope="col">Tipo</th><th scope="col">Actualizado</th><th scope="col"><span class="sr-only">Descarga</span></th></tr></thead>
+      <tbody>${docs.map(d => `<tr><td><strong style="color:var(--fg)">${esc(d.title)}</strong><small>${d.tags.map(esc).join(' · ')}</small></td><td>${esc(d.cat)}</td><td>${esc(d.type)} · ${esc(d.size)}</td><td class="nowrap">${fmtDate(d.updated)}</td><td>${disabledBtn('Descargar', 'Fase 3', '', 'download')}</td></tr>`).join('')}</tbody></table></div>
+  </div></section>`;
+}
+
+function viewStub(title, lead, phase, items) {
+  return `
+  <div class="page-head"><div class="wrap"><span class="eyebrow">${tagF3(phase)}</span><h1 id="h-stub" tabindex="-1">${esc(title)}</h1><p>${esc(lead)}</p></div></div>
+  <section class="section" style="padding-top:40px"><div class="wrap stack" style="gap:24px">
+    <div class="notice warn">${ic('warn')}<p><strong>Esta sección aún no está construida.</strong> Aparece en el mapa del sitio y su contenido se desarrolla en la ${esc(phase)}. Lo siguiente es lo previsto, no contenido real.</p></div>
+    <div class="card"><h3 style="margin-bottom:12px">Contenido previsto</h3><ul class="legend-list">${items.map(i => `<li>${ic('check')} ${esc(i)}</li>`).join('')}</ul></div>
+  </div></section>`;
+}
+const STUBS = {
+  'quienes-somos': ['Quiénes somos', 'Misión, visión, equipo y fundamentos de la organización.', 'Fase 3', ['Misión y visión redactadas por la dirección', 'Equipo, con fotografía y consentimiento documentado', 'Fundamentos doctrinales y valores', 'Historia de la organización']],
+  'publicaciones': ['Publicaciones', 'Libros, artículos y materiales de formación publicados por la organización.', 'Fase 3', ['Listado con filtros por principio, acción y etapa', 'Ficha de cada publicación con descarga', 'Administración desde Directus']],
+  'historias': ['Historias y testimonios', 'Relatos de líderes y comunidades que han recorrido el proceso.', 'Fase 3', ['Historias con foto, ubicación y etapa', 'Consentimiento de publicación registrado', 'Administración desde Directus']],
+  'reportes': ['Reportes administrativos', 'Informes de participación, documentos y solicitudes.', 'Fase 3', ['Participación por etapa, programa y cohorte', 'Solicitudes por estado y tiempos de respuesta', 'Documentos por vencer según política de conservación', 'Exportación a hoja de cálculo']]
+};
+
+function viewContacto() {
+  return `
+  <div class="page-head"><div class="wrap"><span class="eyebrow">Contacto</span><h1 id="h-con" tabindex="-1">Hablemos</h1><p>Envíe una solicitud de información o de acompañamiento. ${tagF3()}</p></div></div>
+  <section class="section" style="padding-top:40px"><div class="wrap grid g2" style="gap:48px;align-items:start">
+    <form class="card stack" onsubmit="return false" aria-label="Formulario de contacto (sin conexión)">
+      <div class="notice warn">${ic('warn')}<p><strong>Este formulario no envía nada.</strong> El envío se conecta en la Fase 3 con validación en servidor, protección contra spam y registro de la solicitud en la oficina virtual.</p></div>
+      <div class="field"><label for="c-n">Nombre</label><input id="c-n" type="text" disabled></div>
+      <div class="field"><label for="c-e">Correo electrónico</label><input id="c-e" type="email" disabled></div>
+      <div class="field"><label for="c-t">Tipo de solicitud</label><select id="c-t" disabled><option>Información sobre programas</option><option>Acompañamiento</option><option>Colaboración</option></select></div>
+      <div class="field"><label for="c-m">Mensaje</label><textarea id="c-m" disabled></textarea></div>
+      <div><button class="btn" type="button" disabled aria-disabled="true">Enviar solicitud ${tagF3()}</button></div>
+    </form>
+    <div class="stack"><h2>Otras vías</h2><p class="muted">Datos de contacto de ejemplo. Los reales los entrega la organización.</p>
+      <dl class="dl"><dt>Correo</dt><dd>contacto@leadersource.example</dd><dt>Teléfono</dt><dd>+00 000 000 0000</dd><dt>Dirección</dt><dd>Por definir</dd></dl></div>
+  </div></section>`;
+}
+
+function viewAcceso() {
+  const home = { superadmin: 'admin', director: 'admin', coordinador: 'admin', gestor: 'oficina', resp: 'oficina', instructor: 'campus', participante: 'campus', externo: 'oficina' };
+  const icons = { superadmin: 'sliders', director: 'chart', coordinador: 'book', gestor: 'folder', resp: 'users', instructor: 'pen', participante: 'user', externo: 'globe' };
+  return `
+  <div class="page-head"><div class="wrap"><span class="eyebrow">Acceso a la plataforma</span><h1 id="h-acc" tabindex="-1">Entrar a la plataforma</h1><p>Campus virtual, oficina virtual y administración, según su rol.</p></div></div>
+  <section class="section" style="padding-top:40px"><div class="wrap grid g2" style="gap:48px;align-items:start">
+    <form class="card stack" onsubmit="return false" aria-label="Inicio de sesión (sin conexión)">
+      <h2 style="font-size:1.25rem">Iniciar sesión ${tagF3()}</h2>
+      <div class="notice warn">${ic('warn')}<p>No hay inicio de sesión real. La autenticación segura, con segundo factor para los roles de gestión, se construye en la Fase 3.</p></div>
+      <div class="field"><label for="l-e">Correo electrónico</label><input id="l-e" type="email" disabled></div>
+      <div class="field"><label for="l-p">Contraseña</label><input id="l-p" type="text" disabled></div>
+      <div><button class="btn" type="button" disabled aria-disabled="true">Entrar ${tagF3()}</button></div>
+    </form>
+    <div class="stack"><h2 style="font-size:1.25rem">Probar la maqueta con un rol ${tagDemo}</h2>
+      <p class="muted">Elija un rol para ver qué módulos y datos tendría disponibles. Es solo una simulación para revisar el diseño. En producción el rol viene de la sesión autenticada y la API decide el acceso.</p>
+      <div class="grid" style="gap:10px">${ROLES.map(r => `<button class="card link" type="button" data-role="${r.id}" data-go="${home[r.id]}" style="text-align:left;cursor:pointer;grid-template-columns:auto 1fr;align-items:center;padding:14px 16px;font:inherit;color:inherit"><span class="ico-box">${ic(icons[r.id])}</span><span><strong style="color:var(--fg)">${esc(r.name)}</strong><br><span class="muted" style="font-size:.8125rem">${esc(r.person)}</span></span></button>`).join('')}</div>
+    </div>
+  </div></section>`;
+}
+
+function viewEstado() {
+  const rows = (arr) => arr.map(([a, b, c]) => `<tr><td>${a}</td><td>${b}</td><td>${c}</td></tr>`).join('');
+  return `
+  <div class="page-head"><div class="wrap"><span class="eyebrow">Estado del prototipo</span><h1 id="h-est2" tabindex="-1">Qué es real, qué es demostración y qué falta</h1><p>Este prototipo es una maqueta navegable. No tiene servidor, base de datos, autenticación ni archivos reales. Todos los datos son ficticios.</p></div></div>
+  <section class="section" style="padding-top:40px"><div class="wrap stack" style="gap:40px">
+    <div class="grid g3">
+      <div class="card stack">${tagReal}<h3>Funciona en el navegador</h3><p>Opera sobre datos de demostración y se pierde al borrar los datos del navegador.</p></div>
+      <div class="card stack">${tagDemo}<h3>Demostración</h3><p>Muestra contenido de ejemplo para evaluar diseño, textos y flujos. No está conectado a nada.</p></div>
+      <div class="card stack">${tagF3('Fase 3 / 4')}<h3>Pendiente</h3><p>Aparece deshabilitado y dice en qué fase se conecta.</p></div>
+    </div>
+    <div class="tablewrap"><table><caption>Funciones del prototipo</caption><thead><tr><th scope="col">Función</th><th scope="col">Estado</th><th scope="col">Detalle</th></tr></thead><tbody>${rows([
+      ['Navegación entre pantallas', tagReal, 'Las ocho pantallas principales y el selector de rol.'],
+      ['Filtros y búsqueda del catálogo', tagReal, 'Filtran los ocho programas de ejemplo.'],
+      ['Búsqueda y filtros de documentos', tagReal, 'Filtran doce documentos de ejemplo según el rol elegido.'],
+      ['Visibilidad por rol', tagReal + ' ' + tagDemo, 'Muestra qué vería cada rol. El control real lo hará la API (Fase 3).'],
+      ['Avance de lecciones y cuestionario', tagReal, 'Se guarda solo en este navegador. No registra nada en un servidor.'],
+      ['Datos de personas, documentos y solicitudes', tagDemo, 'Ficticios. Ninguna persona, iglesia ni documento es real.'],
+      ['Tema claro y oscuro', tagReal, 'Sigue la preferencia del sistema o la que elija.'],
+      ['Autenticación y sesiones', tagF3(), 'Sin conexión.'],
+      ['Carga y descarga de archivos', tagF3(), 'Los botones están deshabilitados. Los archivos no existen.'],
+      ['Control de versiones documental', tagF3(), 'Se muestra el historial de ejemplo. La creación de versiones se construye en la Fase 3.'],
+      ['Formularios (contacto, solicitudes, inscripción)', tagF3(), 'No envían nada.'],
+      ['Certificados', tagF3(), 'Se listan de ejemplo. La emisión de PDF y la verificación se construyen en la Fase 3.'],
+      ['Reproducción de paquetes Rise 360 y Storyline 360', tagF3('Fase 4'), 'La zona de contenido es un marcador. Falta el reproductor y el adaptador SCORM.'],
+      ['Seguimiento SCORM 1.2 y 2004', tagF3('Fase 4'), 'Mostrar un paquete HTML5 no registra avance. Hace falta el adaptador SCORM.'],
+      ['xAPI y almacén de registros (LRS)', tagF3('Fase 4'), 'Previsto como integración futura.'],
+      ['Directus, PostgreSQL y almacenamiento S3', tagF3(), 'El esquema de base de datos está en db/schema.sql y se probó en un PostgreSQL local. No hay servicios en línea.']
+    ])}</tbody></table></div>
+    <div class="card stack"><h3>Pendientes de la dirección</h3><ul class="legend-list">
+      <li>${ic('info')} No se pudo consultar leadersource.org desde esta sesión (dominio no permitido). La línea gráfica sale de la paleta y la tipografía indicadas.</li>
+      <li>${ic('info')} El logotipo es un marcador provisional, no el logotipo oficial.</li>
+      <li>${ic('info')} No hay fotografías: los recuadros indican el encuadre previsto.</li>
+      <li>${ic('info')} Las descripciones de principios, acciones y etapas, y los textos institucionales, son provisionales.</li>
+    </ul></div>
+  </div></section>`;
+}
+
+/* Vistas privadas: campus, oficina y administración. */
+const denied = (what) => `
+  <div class="app-head"><h1 id="h-den" tabindex="-1" style="font-size:1.75rem">Sin acceso con este rol</h1></div>
+  <div class="notice bad">${ic('lock')}<p><strong>El rol «${esc(curRole().name)}» no tiene acceso a ${esc(what)}.</strong> En producción esta decisión la toma la API en cada petición, no la interfaz. Cambie de rol en el menú lateral para ver otras vistas.</p></div>`;
+
+/* ---------- Campus ---------- */
+function viewCampus() {
+  const r = S.role;
+  if (r === 'participante') {
+    const p = person(1);
+    const mine = p.enr.map(e => ({ c: course(e[0]), pct: courseProgress(course(e[0])), due: e[3] }));
+    const open = mine.filter(m => m.pct < 100);
+    const nextCourse = open[0];
+    const nextLesson = nextCourse ? allLessons(nextCourse.c).find(l => !S.done[l.key]) : null;
+    const stageIdx = STAGES.findIndex(s => s.code === p.stage);
+    return `
+    <div class="app-head"><span class="eyebrow">Campus virtual ${tagDemo}</span><h1 id="h-camp" tabindex="-1">Mi aprendizaje</h1><p>Hola, ${esc(p.name.split(' ')[0])}. Esta es su trayectoria de formación.</p></div>
+    <section aria-label="Etapa actual" class="card"><h2 style="font-size:1.0625rem;margin-bottom:16px">Su etapa de desarrollo</h2>
+      <ol class="stages">${STAGES.map((s, i) => `<li><span class="dot" ${i === stageIdx ? 'style="background:var(--accent);border-color:var(--accent);color:#0E2236"' : ''}>${i < stageIdx ? ic('check') : i + 1}</span><strong style="color:var(--fg);font-family:var(--font-display)">${esc(s.en)}</strong>${i === stageIdx ? '<span class="chip stage">Etapa actual</span>' : ''}</li>`).join('')}</ol></section>
+    ${nextCourse ? `<section class="card mist stack" aria-labelledby="h-cont"><span class="eyebrow">Continuar donde lo dejó</span><h2 id="h-cont" style="font-size:1.375rem">${esc(nextCourse.c.title)}</h2><p>Siguiente: ${esc(nextLesson.title)}</p>${bar(nextCourse.pct)}<div><a class="btn" href="#leccion-${nextCourse.c.id}-${nextLesson.mi}-${nextLesson.li}">Continuar ${ic('right')}</a></div></section>` : ''}
+    <section aria-labelledby="h-asig"><h2 id="h-asig" style="font-size:1.25rem;margin-bottom:16px">Mis cursos</h2>
+      <div class="grid g2">${mine.map(m => `<article class="card stack"><div class="row">${stageChip(m.c.stage)}${m.pct === 100 ? '<span class="chip ok">Completado</span>' : '<span class="chip">En curso</span>'}</div><h3><a href="#curso-${m.c.id}" style="color:inherit">${esc(m.c.title)}</a></h3>${bar(m.pct)}<div class="meta"><span>${ic('layers')} ${esc(m.c.format)}</span>${m.due && m.pct < 100 ? `<span>${ic('clock')} Fecha límite ${fmtDate(m.due)}</span>` : ''}</div></article>`).join('')}</div></section>
+    <section class="split"><div class="card stack"><h2 style="font-size:1.125rem">Certificados</h2>${p.certs.length ? `<ul class="list-plain">${p.certs.map(c => `<li><div><strong style="color:var(--fg)">${esc(course(c[0]).title)}</strong><small>${esc(c[1])} · ${fmtDate(c[2])} · Código ${esc(c[3])}</small></div>${disabledBtn('Descargar', 'Fase 3', '', 'download')}</li>`).join('')}</ul>` : '<p class="muted">Aún no tiene certificados.</p>'}</div>
+      <div class="card stack"><h2 style="font-size:1.125rem">Seguir explorando</h2><p class="muted">Programas que sirven a su etapa actual.</p><div class="stack" style="gap:8px">${COURSES.filter(c => c.stage === p.stage && !p.enr.some(e => e[0] === c.id)).slice(0, 3).map(c => `<a href="#curso-${c.id}">${esc(c.title)}</a>`).join('') || '<span class="muted">No hay programas nuevos para su etapa.</span>'}<a class="btn sec sm" href="#formacion">Ver catálogo</a></div></div></section>`;
+  }
+  if (r === 'instructor') {
+    const mine = COURSES.filter(c => INSTRUCTOR_COURSES.includes(c.id));
+    return `
+    <div class="app-head"><span class="eyebrow">Campus virtual ${tagDemo}</span><h1 id="h-camp" tabindex="-1">Mis cursos como instructor</h1><p>Cursos y participantes a su cargo.</p></div>
+    <div class="grid g2">${mine.map(c => { const n = PEOPLE.filter(p => p.enr.some(e => e[0] === c.id)).length; return `<article class="card stack"><div class="row">${stageChip(c.stage)}<span class="chip">${esc(c.format)}</span></div><h3><a href="#curso-${c.id}" style="color:inherit">${esc(c.title)}</a></h3><div class="meta"><span>${ic('users')} ${n} participantes</span><span>${ic('layers')} ${esc(c.std)}</span></div><div class="row">${disabledBtn('Calificar actividades', 'Fase 3')}</div></article>`; }).join('')}</div>`;
+  }
+  return `
+  <div class="app-head"><span class="eyebrow">Campus virtual ${tagDemo}</span><h1 id="h-camp" tabindex="-1">Gestión de programas</h1><p>Vista de coordinación sobre los cursos del campus.</p></div>
+  <div class="tablewrap"><table><caption class="sr-only">Cursos del campus</caption><thead><tr><th scope="col">Curso</th><th scope="col">Etapa</th><th scope="col">Formato</th><th scope="col">Estándar</th><th scope="col">Participantes</th></tr></thead>
+  <tbody>${COURSES.map(c => `<tr><td><a href="#curso-${c.id}">${esc(c.title)}</a></td><td>${stageChip(c.stage)}</td><td>${esc(c.format)}</td><td>${esc(c.std)}</td><td>${PEOPLE.filter(p => p.enr.some(e => e[0] === c.id)).length}</td></tr>`).join('')}</tbody></table></div>
+  <div class="row">${disabledBtn('Importar paquete SCORM', 'Fase 4', '', 'upload')} ${disabledBtn('Crear curso', 'Fase 3', '', 'plus')}</div>`;
+}
+
+function viewCurso(id) {
+  const c = course(id);
+  if (!c) return denied('este curso');
+  const pct = courseProgress(c), ls = allLessons(c), next = ls.find(l => !S.done[l.key]) || ls[0];
+  const isPkg = c.format === 'Rise 360' || c.format === 'Storyline 360';
+  return `
+  <div class="app-head"><div class="crumbs"><a href="#formacion">Catálogo</a> / ${esc(c.title)}</div>
+    <div class="row">${stageChip(c.stage)}<span class="chip">${esc(c.level)}</span><span class="chip">${esc(c.modality)}</span>${tagDemo}</div>
+    <h1 id="h-cur" tabindex="-1" style="font-size:clamp(1.75rem,3.4vw,2.5rem)">${esc(c.title)}</h1><p>${esc(c.summary)}</p></div>
+  <div class="split">
+    <div class="stack" style="gap:24px">
+      <section class="card mist stack" aria-label="Su avance">${bar(pct)}<div class="row"><a class="btn" href="#leccion-${c.id}-${next.mi}-${next.li}">${pct === 0 ? 'Comenzar' : pct === 100 ? 'Repasar' : 'Continuar'} ${ic('right')}</a>${disabledBtn('Inscribirme', 'Fase 3')}</div></section>
+      <section aria-labelledby="h-mod"><h2 id="h-mod" style="font-size:1.375rem;margin-bottom:16px">Módulos y lecciones</h2>
+        <div class="stack">${c.modules.map((m, mi) => `<div class="card"><h3 style="margin-bottom:8px">Módulo ${mi + 1}. ${esc(m.title)}</h3><ul class="list-plain">${m.lessons.map((l, li) => { const k = lessonKey(c.id, mi + 1, li + 1); return `<li><div><a href="#leccion-${c.id}-${mi + 1}-${li + 1}">${esc(l.title)}</a><small>${esc(KIND[l.kind][0])} · ${l.min} min</small></div><span class="chip ${S.done[k] ? 'ok' : ''}">${S.done[k] ? 'Completada' : 'Pendiente'}</span></li>`; }).join('')}</ul></div>`).join('')}</div></section>
+    </div>
+    <aside class="stack" aria-label="Información del curso">
+      <div class="card stack"><h2 style="font-size:1.0625rem">Datos del curso</h2><dl class="dl"><dt>Duración</dt><dd>${c.hours} horas</dd><dt>Instructor</dt><dd>${esc(c.instructor)}</dd><dt>Formato</dt><dd>${esc(c.format)}</dd><dt>Estándar</dt><dd>${esc(c.std)}</dd><dt>Acciones</dt><dd>${c.actions.map(a => esc(byCode(ACTIONS, a).en)).join(', ')}</dd><dt>Principio</dt><dd>${esc(byCode(PRINCIPLES, c.principle).en)}</dd></dl></div>
+      <div class="card stack"><h2 style="font-size:1.0625rem">Seguimiento del avance</h2>${isPkg
+        ? `<p>Este curso se elabora en ${esc(c.format)} y se importa como paquete ${esc(c.std)}. Para que el avance quede registrado, el campus debe comunicarse con el paquete por medio del adaptador SCORM.</p><div class="notice warn">${ic('warn')}<p>Mostrar el paquete HTML5 no registra avance por sí solo. El adaptador se construye en la Fase 4 ${tagF3('Fase 4')}.</p></div>`
+        : '<p>Curso nativo del campus. El avance se registra por lección en la base de datos cuando se conecte el servidor (Fase 3).</p>'}</div>
+      <div class="card stack"><h2 style="font-size:1.0625rem">Recursos descargables</h2><div class="resources">${['Guía del curso (PDF)', 'Hoja de trabajo (DOCX)'].map(t => `<div class="res"><span>${ic('file')} ${t}</span>${disabledBtn('Descargar', 'Fase 3', '', 'download')}</div>`).join('')}</div></div>
+    </aside>
+  </div>`;
+}
+
+const NATIVE = {
+  '1-1-1': `<p>Bienvenida. Este curso es una primera conversación sobre qué significa servir como líder cuando Cristo ocupa el centro. No es un curso de técnicas. Es un recorrido para pensar, orar y conversar con otros participantes.</p><h3>Qué va a encontrar</h3><p>Tres módulos cortos, con lecturas, una reflexión personal, un recorrido interactivo y una evaluación final. Puede avanzar a su ritmo y volver a cualquier lección.</p><div class="notice">${ic('info')}<p>Texto de ejemplo para la maqueta. El contenido real lo prepara el equipo de formación.</p></div>`,
+  '1-1-2': `<p>Cuando decimos que Cristo es el centro, no hablamos de un tema que se agrega a la formación. Hablamos de la medida con que se evalúa todo lo demás: lo que se enseña, cómo se enseña y para qué se forma al líder.</p>
+    <figure class="quote italic" style="margin:8px 0"><p>Y él es la cabeza del cuerpo que es la iglesia, él que es el principio, el primogénito de entre los muertos, para que en todo tenga la preeminencia.</p><cite>Colosenses 1:18 (RVR1960)</cite></figure>
+    <h3>Tres preguntas para pensar</h3><p>¿Qué decisiones de su ministerio se toman hoy sin mirar a Cristo? ¿Qué cambiaría si Él fuera el criterio? ¿A quién necesita escuchar para verlo con más claridad?</p>
+    <div class="notice">${ic('info')}<p>Texto de ejemplo para la maqueta.</p></div>`
+};
+const genericNative = l => `<p>Contenido de ejemplo para la lección «${esc(l.title)}». En el campus real, esta zona muestra el texto, las imágenes y los recursos que prepare el instructor desde el editor de cursos.</p><p>Una lección nativa admite texto con formato, citas, imágenes, vídeo incrustado de origen permitido y documentos descargables.</p><div class="notice">${ic('info')}<p>Contenido ficticio.</p></div>`;
+
+function viewLeccion(cid, mi, li) {
+  const c = course(cid);
+  const m = c && c.modules[mi - 1], l = m && m.lessons[li - 1];
+  if (!l) return denied('esta lección');
+  const ls = allLessons(c), idx = ls.findIndex(x => x.key === lessonKey(cid, mi, li));
+  const prev = ls[idx - 1], next = ls[idx + 1], key = ls[idx].key, done = !!S.done[key];
+  let body = '';
+  if (l.kind === 'nativa') body = `<div class="prose">${NATIVE[key] || genericNative(l)}</div>`;
+  else if (l.kind === 'scorm') body = `<div class="frame" role="img" aria-label="Marcador del paquete SCORM"><div>${ic('layers')}<strong style="color:var(--fg);font-family:var(--font-display)">Aquí se cargará el paquete ${esc(c.format)}</strong><p class="muted">No hay paquete cargado. En la Fase 4 el campus abre el paquete ${esc(c.std)} en esta zona y recibe de él el estado, la puntuación y el punto donde quedó.</p>${tagF3('Fase 4')}</div></div>`;
+  else if (l.kind === 'video') body = `<div class="frame" role="img" aria-label="Marcador de vídeo"><div>${ic('video')}<strong style="color:var(--fg);font-family:var(--font-display)">Vídeo pendiente</strong><p class="muted">Aquí se reproducirá el vídeo de la lección con subtítulos y transcripción.</p>${tagDemo}</div></div>`;
+  else if (l.kind === 'actividad') body = `<div class="prose"><p>Escriba una reflexión breve a partir de lo estudiado. Un instructor la revisará y le responderá.</p></div><div class="field"><label for="act">Su respuesta</label><textarea id="act" placeholder="Escriba aquí"></textarea></div><div class="row">${disabledBtn('Enviar al instructor', 'Fase 3')}<span class="muted" style="font-size:.875rem">Lo que escriba aquí no se guarda.</span></div>`;
+  else body = `<form class="quiz" id="quiz" onsubmit="return false" aria-label="Cuestionario">${QUIZ.map((q, i) => `<fieldset class="q" id="q${i}"><legend>${i + 1}. ${esc(q.q)}</legend>${q.o.map((o, j) => `<label class="check"><input type="radio" name="q${i}" value="${j}"> <span>${esc(o)}</span></label>`).join('')}</fieldset>`).join('')}<div class="row"><button class="btn" type="submit" id="quiz-go">Comprobar respuestas</button><span id="quiz-out" role="status" aria-live="polite"></span></div><p class="muted" style="font-size:.875rem">Nota mínima para aprobar: 70 %. El resultado se guarda solo en este navegador.</p></form>`;
+
+  return `
+  <div class="player">
+    <nav class="outline" aria-label="Contenido del curso">
+      <a href="#curso-${c.id}" class="muted" style="font-size:.875rem">${ic('left')} Volver al curso</a>
+      <h2>${esc(c.title)}</h2>${bar(courseProgress(c))}
+      ${c.modules.map((mm, mmi) => `<details ${mmi + 1 === mi ? 'open' : ''}><summary>Módulo ${mmi + 1}. ${esc(mm.title)}</summary><ol>${mm.lessons.map((ll, lli) => { const k = lessonKey(c.id, mmi + 1, lli + 1), cur = k === key; return `<li><a href="#leccion-${c.id}-${mmi + 1}-${lli + 1}" ${cur ? 'aria-current="page"' : ''}><span class="st ${S.done[k] ? 'done' : cur ? 'cur' : ''}" aria-hidden="true">${S.done[k] ? ic('check') : ''}</span><span>${esc(ll.title)}<span class="sr-only">, ${S.done[k] ? 'completada' : 'pendiente'}</span></span></a></li>`; }).join('')}</ol></details>`).join('')}
+    </nav>
+    <div class="stage-main">
+      <div class="app-head"><div class="crumbs">Módulo ${mi}. ${esc(m.title)} · Lección ${li}</div><div class="row"><span class="chip">${ic(KIND[l.kind][1])} ${esc(KIND[l.kind][0])}</span><span class="chip">${l.min} min</span>${tagDemo}</div><h1 id="h-lec" tabindex="-1" style="font-size:clamp(1.5rem,3vw,2.125rem)">${esc(l.title)}</h1></div>
+      ${body}
+      <section class="stack" aria-label="Recursos complementarios"><h2 style="font-size:1.0625rem">Recursos complementarios</h2><div class="resources"><div class="res"><span>${ic('file')} Resumen de la lección (PDF)</span>${disabledBtn('Descargar', 'Fase 3', '', 'download')}</div></div></section>
+      <div class="lesson-nav">
+        ${prev ? `<a class="btn sec" href="#leccion-${c.id}-${prev.mi}-${prev.li}">${ic('left')} Anterior</a>` : '<span></span>'}
+        <button type="button" class="btn ${done ? 'sec' : ''}" id="toggle-done" aria-pressed="${done}">${done ? ic('check') + ' Completada. Deshacer' : 'Marcar como completada'}</button>
+        ${next ? `<a class="btn sec" href="#leccion-${c.id}-${next.mi}-${next.li}">Siguiente ${ic('right')}</a>` : `<a class="btn sec" href="#curso-${c.id}">Terminar</a>`}
+      </div>
+      <p class="muted" style="font-size:.8125rem">${l.kind === 'scorm' ? 'En producción, el paquete informa la finalización. Aquí el botón es solo de demostración. ' : ''}El avance se guarda únicamente en este navegador.</p>
+    </div>
+  </div>`;
+}
+
+/* ---------- Oficina virtual: documentos ---------- */
+function docsFiltered() {
+  const f = S.doc, q = f.q.trim().toLowerCase();
+  return visibleDocs().filter(d => (!q || (d.title + ' ' + d.ref + ' ' + d.tags.join(' ') + ' ' + d.owner).toLowerCase().includes(q))
+    && (!f.cat || d.cat === f.cat) && (!f.vis || d.vis === f.vis) && (!f.status || d.status === f.status));
+}
+function docTable() {
+  const rows = docsFiltered();
+  return `<p class="muted" role="status" aria-live="polite" style="margin-bottom:12px"><strong style="color:var(--fg)">${rows.length}</strong> de ${visibleDocs().length} documentos visibles para este rol</p>
+  <div class="tablewrap"><table><caption class="sr-only">Documentos</caption><thead><tr><th scope="col">Documento</th><th scope="col">Acceso</th><th scope="col">Estado</th><th scope="col">Actualizado</th></tr></thead>
+  <tbody>${rows.length ? rows.map(d => `<tr class="${S.doc.sel === d.id ? 'sel' : ''}"><td><button type="button" class="rowbtn" data-doc="${d.id}">${esc(d.title)}</button><small>${esc(d.cat)} · ${esc(d.ref)} · v${d.v}</small></td><td><span class="chip ${d.vis === 'public' ? 'pub' : 'priv'}">${ic(d.vis === 'public' ? 'globe' : 'lock')} ${d.vis === 'public' ? 'Público' : 'Privado'}</span></td><td><span class="chip ${DOC_STATUS[d.status][1]}">${DOC_STATUS[d.status][0]}</span></td><td class="nowrap">${fmtDate(d.updated)}</td></tr>`).join('') : '<tr><td colspan="4">Ningún documento coincide con la búsqueda.</td></tr>'}</tbody></table></div>`;
+}
+function docPanel() {
+  const d = DOCS.find(x => x.id === S.doc.sel);
+  if (!d || !visibleDocs().includes(d)) return `<div class="card stack"><h2 style="font-size:1.0625rem">Detalle del documento</h2><p class="muted">Seleccione un documento de la lista para ver sus metadatos, versiones e historial.</p></div>`;
+  const w = canWriteDoc(d);
+  const people = d.parts.map(person).filter(p => visiblePeople().includes(p));
+  return `<div class="card stack" aria-live="polite"><div class="row"><span class="chip ${d.vis === 'public' ? 'pub' : 'priv'}">${d.vis === 'public' ? 'Público' : 'Privado'}</span><span class="chip ${DOC_STATUS[d.status][1]}">${DOC_STATUS[d.status][0]}</span></div>
+    <h2 style="font-size:1.1875rem">${esc(d.title)}</h2>
+    <dl class="dl"><dt>Referencia</dt><dd>${esc(d.ref)}</dd><dt>Categoría</dt><dd>${esc(d.cat)}</dd><dt>Responsable</dt><dd>${esc(d.owner)}</dd><dt>Departamento</dt><dd>${esc(DEPTS[d.dept])}</dd><dt>Archivo</dt><dd>${esc(d.type)} · ${esc(d.size)}</dd><dt>Etiquetas</dt><dd>${d.tags.map(esc).join(', ')}</dd><dt>Creado</dt><dd>${fmtDate(d.versions[d.versions.length - 1][1])}</dd><dt>Actualizado</dt><dd>${fmtDate(d.updated)}</dd>${people.length ? `<dt>Expedientes</dt><dd>${people.map(p => `<a href="#expediente-${p.id}">${esc(p.name)}</a>`).join(', ')}</dd>` : ''}</dl>
+    <div class="row">${disabledBtn('Descargar', 'Fase 3', '', 'download')}${w ? disabledBtn('Subir nueva versión', 'Fase 3', '', 'upload') : '<span class="muted" style="font-size:.8125rem">Sin permiso de edición con este rol</span>'}</div>
+    <h3 style="font-size:1rem;margin-top:8px">Historial de versiones</h3>
+    <ol class="timeline">${d.versions.map(v => `<li><strong style="color:var(--fg)">Versión ${v[0]}</strong> · ${fmtDate(v[1])}<small>${esc(v[2])}. ${esc(v[3])}</small></li>`).join('')}</ol></div>`;
+}
+function viewOficina() {
+  const r = curRole();
+  const scope = { superadmin: 'todos los documentos', director: 'todos los documentos, en lectura', coordinador: 'todos los documentos, en lectura', gestor: 'todos los documentos', resp: 'documentos públicos y los de su departamento (Formación)', instructor: 'solo documentos públicos', participante: 'documentos públicos y los asociados a su expediente', externo: 'solo documentos públicos' }[S.role];
+  return `
+  <div class="app-head"><span class="eyebrow">Oficina virtual ${tagDemo}</span><h1 id="h-ofi" tabindex="-1">Documentos</h1><p>Registro, clasificación y consulta del repositorio institucional.</p></div>
+  <div class="notice">${ic('shield')}<p>Rol actual: <strong>${esc(r.name)}</strong>. Ve ${scope}. El filtro se aplica en la interfaz de demostración. En producción lo aplica la API y la base de datos antes de devolver cualquier dato.</p></div>
+  <form class="toolbar" onsubmit="return false" aria-label="Búsqueda de documentos">
+    <div class="field"><label for="d-q">Buscar por título, referencia, etiqueta o responsable</label><input id="d-q" type="search" autocomplete="off"></div>
+    <div class="field"><label for="d-c">Categoría</label><select id="d-c"><option value="">Todas</option>${CATEGORIES.map(c => `<option>${c}</option>`).join('')}</select></div>
+    <div class="field"><label for="d-v">Acceso</label><select id="d-v"><option value="">Todos</option><option value="public">Público</option><option value="private">Privado</option></select></div>
+    <div class="field"><label for="d-s">Estado</label><select id="d-s"><option value="">Todos</option>${Object.entries(DOC_STATUS).map(([k, v]) => `<option value="${k}">${v[0]}</option>`).join('')}</select></div>
+  </form>
+  <div class="row">${canWriteAny() ? disabledBtn('Registrar documento', 'Fase 3', '', 'plus') : ''}${canWriteAny() ? disabledBtn('Carga de archivos', 'Fase 3', '', 'upload') : ''}</div>
+  <div class="split"><div id="doc-table">${docTable()}</div><div id="doc-panel">${docPanel()}</div></div>`;
+}
+const canWriteAny = () => ['superadmin', 'gestor', 'resp'].includes(S.role);
+
+/* ---------- Participantes y expedientes ---------- */
+function viewParticipantes() {
+  const list = visiblePeople();
+  return `
+  <div class="app-head"><span class="eyebrow">Oficina virtual ${tagDemo}</span><h1 id="h-par" tabindex="-1">Participantes</h1><p>Directorio de personas con expediente. ${esc(curRole().name)}: ${list.length} ${list.length === 1 ? 'expediente visible' : 'expedientes visibles'}.</p></div>
+  <div class="notice">${ic('lock')}<p>Cada consulta de un expediente queda registrada en el registro de actividad. Todos los nombres de esta maqueta son ficticios.</p></div>
+  <div class="tablewrap"><table><caption class="sr-only">Participantes</caption><thead><tr><th scope="col">Nombre</th><th scope="col">Organización</th><th scope="col">Etapa</th><th scope="col">Estado</th><th scope="col">Departamento</th></tr></thead>
+  <tbody>${list.map(p => `<tr><td><a href="#expediente-${p.id}">${esc(p.name)}</a><small>${esc(p.country)}</small></td><td>${esc(p.org)}</td><td>${stageChip(p.stage)}</td><td><span class="chip ${/Activ/.test(p.status) ? 'ok' : 'warn'}">${esc(p.status)}</span></td><td>${esc(DEPTS[p.dept])}</td></tr>`).join('')}</tbody></table></div>
+  <div class="row">${S.role !== 'participante' && S.role !== 'instructor' ? disabledBtn('Registrar participante', 'Fase 3', '', 'plus') : ''}</div>`;
+}
+function viewExpediente(id) {
+  const p = person(id);
+  if (!p) return denied('este expediente');
+  if (!visiblePeople().includes(p)) return denied('este expediente');
+  const showNotes = !['participante', 'instructor'].includes(S.role);
+  const tabs = [['datos', 'Datos'], ['cap', 'Capacitaciones'], ['docs', 'Documentos'], ['cert', 'Certificaciones']].concat(showNotes ? [['obs', 'Observaciones internas']] : []);
+  if (!tabs.some(t => t[0] === S.tab)) S.tab = 'datos';
+  return `
+  <div class="app-head"><div class="crumbs"><a href="#participantes">Participantes</a> / ${esc(p.name)}</div>
+    <div class="row">${stageChip(p.stage)}<span class="chip ${/Activ/.test(p.status) ? 'ok' : 'warn'}">${esc(p.status)}</span>${tagDemo}</div>
+    <h1 id="h-exp" tabindex="-1" style="font-size:clamp(1.75rem,3.4vw,2.5rem)">${esc(p.name)}</h1><p>${esc(p.org)} · ${esc(p.country)}</p></div>
+  <div class="notice warn">${ic('lock')}<p><strong>Expediente de acceso restringido.</strong> Cada consulta queda registrada. No comparta capturas de pantalla ni descargas fuera de los canales autorizados.</p></div>
+  <div><div class="tabs" role="tablist" aria-label="Secciones del expediente">${tabs.map(t => `<button type="button" role="tab" id="t-${t[0]}" aria-selected="${S.tab === t[0]}" aria-controls="tp" data-tab="${t[0]}" data-pid="${p.id}">${t[1]}</button>`).join('')}</div>
+  <div class="tabpanel" id="tp" role="tabpanel" tabindex="0" aria-labelledby="t-${S.tab}">${expTab(p)}</div></div>`;
+}
+function expTab(p) {
+  const t = S.tab;
+  if (t === 'datos') return `<div class="grid g2"><div class="card stack"><h2 style="font-size:1.0625rem">Datos de contacto</h2><dl class="dl"><dt>Correo</dt><dd>${esc(p.email)}</dd><dt>Teléfono</dt><dd>${esc(p.phone)}</dd><dt>Organización</dt><dd>${esc(p.org)}</dd><dt>País</dt><dd>${esc(p.country)}</dd><dt>Departamento</dt><dd>${esc(DEPTS[p.dept])}</dd><dt>Expediente desde</dt><dd>${fmtDate(p.since)}</dd></dl><div>${disabledBtn('Editar datos', 'Fase 3', '', 'pen')}</div></div>
+    <div class="card stack"><h2 style="font-size:1.0625rem">Etapa de desarrollo</h2><ol class="stages v">${STAGES.map((s, i) => { const cur = STAGES.findIndex(x => x.code === p.stage); return `<li><span class="dot" ${i === cur ? 'style="background:var(--accent);border-color:var(--accent);color:#0E2236"' : ''}>${i < cur ? ic('check') : i + 1}</span><strong style="color:var(--fg)">${esc(s.en)}</strong>${i === cur ? ' <span class="chip stage">Actual</span>' : ''}<span class="muted" style="font-size:.875rem;display:block">${esc(s.es)}</span></li>`; }).join('')}</ol></div></div>`;
+  if (t === 'cap') return `<div class="tablewrap"><table><caption class="sr-only">Capacitaciones</caption><thead><tr><th scope="col">Curso</th><th scope="col">Estado</th><th scope="col">Avance</th><th scope="col">Fecha límite</th></tr></thead><tbody>${p.enr.map(e => { const c = course(e[0]); const pct = p.id === 1 ? courseProgress(c) : e[1]; return `<tr><td><a href="#curso-${c.id}">${esc(c.title)}</a></td><td><span class="chip ${pct === 100 ? 'ok' : e[2] === 'En pausa' ? 'warn' : ''}">${pct === 100 ? 'Completado' : esc(e[2])}</span></td><td style="min-width:160px">${bar(pct)}</td><td class="nowrap">${e[3] && pct < 100 ? fmtDate(e[3]) : '–'}</td></tr>`; }).join('')}</tbody></table></div>`;
+  if (t === 'docs') { const ds = DOCS.filter(d => d.parts.includes(p.id) && visibleDocs().includes(d)); return ds.length ? `<div class="tablewrap"><table><caption class="sr-only">Documentos asociados</caption><thead><tr><th scope="col">Documento</th><th scope="col">Categoría</th><th scope="col">Actualizado</th><th scope="col"><span class="sr-only">Acciones</span></th></tr></thead><tbody>${ds.map(d => `<tr><td>${esc(d.title)}<small>${esc(d.ref)}</small></td><td>${esc(d.cat)}</td><td class="nowrap">${fmtDate(d.updated)}</td><td>${disabledBtn('Descargar', 'Fase 3', '', 'download')}</td></tr>`).join('')}</tbody></table></div>` : '<div class="card"><p class="muted">No hay documentos asociados visibles para este rol.</p></div>'; }
+  if (t === 'cert') return p.certs.length ? `<div class="card"><ul class="list-plain">${p.certs.map(c => `<li><div><strong style="color:var(--fg)">${esc(course(c[0]).title)}</strong><small>${esc(c[1])} · ${fmtDate(c[2])} · Código de verificación ${esc(c[3])}</small></div>${disabledBtn('Descargar', 'Fase 3', '', 'download')}</li>`).join('')}</ul></div>` : '<div class="card"><p class="muted">Aún no tiene certificaciones.</p></div>';
+  return `<div class="split"><div class="card stack">${p.notes.length ? `<ol class="timeline">${p.notes.map(n => `<li><strong style="color:var(--fg)">${fmtDate(n[0])}</strong><small>${esc(n[1])}</small>${esc(n[2])}</li>`).join('')}</ol>` : '<p class="muted">Sin observaciones.</p>'}</div><div class="card stack"><div class="field"><label for="obs">Nueva observación interna</label><textarea id="obs" disabled></textarea></div><div>${disabledBtn('Guardar observación', 'Fase 3')}</div></div></div>`;
+}
+
+/* ---------- Solicitudes ---------- */
+function reqTable() {
+  const rows = visibleReqs();
+  return `<div class="tablewrap"><table><caption class="sr-only">Solicitudes</caption><thead><tr><th scope="col">Solicitud</th><th scope="col">Responsable</th><th scope="col">Estado</th><th scope="col">Fecha objetivo</th></tr></thead>
+  <tbody>${rows.length ? rows.map(q => `<tr class="${S.req.sel === q.ref ? 'sel' : ''}"><td><button type="button" class="rowbtn" data-req="${q.ref}">${esc(q.subject)}</button><small>${esc(q.kind)} · ${esc(q.ref)} · ${esc(q.who)}</small></td><td>${esc(q.to)}</td><td><span class="chip ${REQ_STATUS[q.status][1]}">${REQ_STATUS[q.status][0]}</span></td><td class="nowrap">${fmtDate(q.due)}</td></tr>`).join('') : '<tr><td colspan="4">No hay solicitudes visibles para este rol.</td></tr>'}</tbody></table></div>`;
+}
+function reqPanel() {
+  const q = visibleReqs().find(x => x.ref === S.req.sel);
+  if (!q) return `<div class="card stack"><h2 style="font-size:1.0625rem">Detalle de la solicitud</h2><p class="muted">Seleccione una solicitud para ver su seguimiento.</p></div>`;
+  const internal = !['participante', 'externo'].includes(S.role);
+  return `<div class="card stack" aria-live="polite"><div class="row"><span class="chip ${REQ_STATUS[q.status][1]}">${REQ_STATUS[q.status][0]}</span><span class="chip">Prioridad ${esc(q.pri.toLowerCase())}</span></div><h2 style="font-size:1.1875rem">${esc(q.subject)}</h2>
+  <dl class="dl"><dt>Referencia</dt><dd>${esc(q.ref)}</dd><dt>Solicitante</dt><dd>${esc(q.who)}</dd><dt>Tipo</dt><dd>${esc(q.kind)}</dd><dt>Responsable</dt><dd>${esc(q.to)}</dd><dt>Fecha objetivo</dt><dd>${fmtDate(q.due)}</dd></dl>
+  ${internal ? `<h3 style="font-size:1rem">Observaciones internas</h3>${q.notes.length ? `<ol class="timeline">${q.notes.map(n => `<li><strong style="color:var(--fg)">${fmtDate(n[0])}</strong><small>${esc(n[1])}</small>${esc(n[2])}</li>`).join('')}</ol>` : '<p class="muted">Sin observaciones.</p>'}<div class="row">${disabledBtn('Asignar', 'Fase 3')}${disabledBtn('Cambiar estado', 'Fase 3')}</div>` : '<p class="muted">Las observaciones internas no son visibles con este rol.</p>'}</div>`;
+}
+function viewSolicitudes() {
+  return `
+  <div class="app-head"><span class="eyebrow">Oficina virtual ${tagDemo}</span><h1 id="h-sol" tabindex="-1">Solicitudes</h1><p>Registro, asignación y seguimiento de procesos.</p></div>
+  <div class="row">${disabledBtn('Nueva solicitud', 'Fase 3', '', 'plus')}</div>
+  <div class="split"><div id="req-table">${reqTable()}</div><div id="req-panel">${reqPanel()}</div></div>`;
+}
+
+/* ---------- Administración ---------- */
+function viewAdmin() {
+  const openReqs = REQS.filter(q => !['resolved', 'closed'].includes(q.status)).length;
+  const showUsers = can('Administración: usuarios y roles'), showLog = can('Registro de actividad');
+  const hl = roleIdx();
+  return `
+  <div class="app-head"><span class="eyebrow">Administración ${tagDemo}</span><h1 id="h-adm" tabindex="-1">Panel administrativo</h1><p>Resumen de usuarios, cursos, documentos y solicitudes.</p></div>
+  <div class="kpis">
+    <div class="card mist kpi"><span class="n">${COURSES.length}</span><span class="l">Cursos publicados</span></div>
+    <div class="card mist kpi"><span class="n">${PEOPLE.length}</span><span class="l">Participantes con expediente</span></div>
+    <div class="card mist kpi"><span class="n">${DOCS.length}</span><span class="l">Documentos registrados</span></div>
+    <div class="card mist kpi"><span class="n">${openReqs}</span><span class="l">Solicitudes abiertas</span></div>
+  </div>
+  <p class="muted" style="font-size:.875rem">Las cifras se calculan sobre los datos de demostración.</p>
+  <section class="stack" aria-labelledby="h-a1"><h2 id="h-a1" style="font-size:1.25rem">Solicitudes recientes</h2><div class="tablewrap"><table><caption class="sr-only">Solicitudes recientes</caption><thead><tr><th scope="col">Solicitud</th><th scope="col">Responsable</th><th scope="col">Estado</th><th scope="col">Fecha objetivo</th></tr></thead><tbody>${REQS.slice(0, 5).map(q => `<tr><td>${esc(q.subject)}<small>${esc(q.ref)}</small></td><td>${esc(q.to)}</td><td><span class="chip ${REQ_STATUS[q.status][1]}">${REQ_STATUS[q.status][0]}</span></td><td class="nowrap">${fmtDate(q.due)}</td></tr>`).join('')}</tbody></table></div></section>
+  <div class="grid g2">
+    <section class="stack" aria-labelledby="h-a2"><h2 id="h-a2" style="font-size:1.25rem">Documentos por revisar</h2><div class="card"><ul class="list-plain">${DOCS.filter(d => d.status === 'review').map(d => `<li><div><strong style="color:var(--fg)">${esc(d.title)}</strong><small>${esc(d.owner)} · ${esc(d.ref)}</small></div><span class="chip warn">En revisión</span></li>`).join('')}</ul></div></section>
+    <section class="stack" aria-labelledby="h-a3"><h2 id="h-a3" style="font-size:1.25rem">Cursos del catálogo</h2><div class="card"><ul class="list-plain">${COURSES.slice(0, 4).map(c => `<li><div><a href="#curso-${c.id}">${esc(c.title)}</a><small>${esc(c.format)} · ${esc(c.std)}</small></div><span class="chip ok">Publicado</span></li>`).join('')}</ul></div></section>
+  </div>
+  ${showUsers ? `<section class="stack" aria-labelledby="h-a4"><div class="row" style="justify-content:space-between"><h2 id="h-a4" style="font-size:1.25rem">Usuarios y roles</h2>${disabledBtn('Invitar usuario', 'Fase 3', '', 'plus')}</div><div class="tablewrap"><table><caption class="sr-only">Usuarios</caption><thead><tr><th scope="col">Usuario</th><th scope="col">Rol</th><th scope="col">Departamento</th><th scope="col">Segundo factor</th></tr></thead><tbody>${USERS.map(u => `<tr><td>${esc(u.name)}</td><td>${esc(ROLES.find(r => r.id === u.role).name)}</td><td>${esc(DEPTS[u.dept] || '–')}</td><td>${u.mfa ? '<span class="chip ok">Obligatorio</span>' : '<span class="chip">Opcional</span>'}</td></tr>`).join('')}</tbody></table></div></section>` : `<div class="notice">${ic('lock')}<p>La gestión de usuarios y roles no está disponible con este rol.</p></div>`}
+  ${showLog ? `<section class="stack" aria-labelledby="h-a5"><h2 id="h-a5" style="font-size:1.25rem">Registro de actividad</h2><div class="tablewrap"><table><caption class="sr-only">Registro de actividad</caption><thead><tr><th scope="col">Fecha</th><th scope="col">Usuario</th><th scope="col">Acción</th><th scope="col">Detalle</th></tr></thead><tbody>${LOG.map(l => `<tr><td class="nowrap">${esc(l[0])}</td><td>${esc(l[1])}</td><td><code>${esc(l[2])}</code></td><td>${esc(l[3])}</td></tr>`).join('')}</tbody></table></div></section>` : ''}
+  <section class="stack" aria-labelledby="h-a6"><h2 id="h-a6" style="font-size:1.25rem">Matriz de roles y permisos</h2>
+    <p class="muted"><strong>T</strong> total · <strong>P</strong> propio · <strong>D</strong> de su departamento · <strong>L</strong> lectura · <strong>–</strong> sin acceso. La columna resaltada es el rol actual.</p>
+    <div class="tablewrap"><table class="matrix"><caption class="sr-only">Permisos por rol</caption><thead><tr><th scope="col">Módulo</th>${ROLES.map((r, i) => `<th scope="col" class="${i === hl ? 'hl' : ''}">${esc(r.short)}</th>`).join('')}</tr></thead><tbody>${MODULES.map(m => `<tr><th scope="row" style="font-weight:600;text-transform:none;letter-spacing:0;font-size:.8125rem;background:var(--surface);color:var(--fg)">${esc(m.module)}</th>${m.lv.map((v, i) => `<td class="${i === hl ? 'hl' : ''} ${v === '-' ? 'none' : ''}">${v === '-' ? '–' : v}</td>`).join('')}</tr>`).join('')}</tbody></table></div></section>`;
+}
+
+/* Estructura de página, enrutador por hash y eventos. */
+const root = document.getElementById('root');
+const TITLES = { inicio: 'Inicio', estrategia: 'Estrategia', formacion: 'Catálogo de formación', recursos: 'Repositorio público', contacto: 'Contacto', acceso: 'Acceso', estado: 'Estado del prototipo', campus: 'Campus virtual', oficina: 'Oficina virtual: documentos', participantes: 'Participantes', solicitudes: 'Solicitudes', admin: 'Panel administrativo', reportes: 'Reportes administrativos', 'quienes-somos': 'Quiénes somos', publicaciones: 'Publicaciones', historias: 'Historias y testimonios', curso: 'Vista de curso', leccion: 'Lección', expediente: 'Expediente individual' };
+
+function protobar() {
+  return `<div class="protobar" role="note"><div class="wrap"><span class="tag">Prototipo</span><span>Datos ficticios. No hay servidor: nada se guarda ni se envía.</span><a href="#estado">Qué es real y qué es demostración</a></div></div>`;
+}
+function themeBtn() {
+  const dark = effTheme() === 'dark';
+  return `<button type="button" class="theme-btn" data-theme-toggle aria-label="Cambiar a tema ${dark ? 'claro' : 'oscuro'}">${ic('sun')} ${dark ? 'Tema claro' : 'Tema oscuro'}</button>`;
+}
+function effTheme() { const t = document.documentElement.getAttribute('data-theme'); if (t) return t; return window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'; }
+
+function publicShell(name, html) {
+  const cur = { 'curso': 'formacion' }[name] || name;
+  return `<a class="skip" href="#main" data-skip>Saltar al contenido</a>${protobar()}
+  <header class="site-header"><div class="wrap">${brand()}
+    <button type="button" class="btn sec sm menu-btn" id="menu-btn" aria-expanded="false" aria-controls="nav">${ic('menu')} Menú</button>
+    <nav class="nav" id="nav" aria-label="Principal">${PUB_NAV.map(([h, l]) => `<a href="#${h}" ${cur === h ? 'aria-current="page"' : ''}>${l}</a>`).join('')}<a class="btn sm" href="#acceso">Acceder</a></nav></div></header>
+  <main id="main">${html}</main>
+  <footer class="site-footer"><div class="wrap">
+    <div class="grid g4"><div class="stack">${brand()}<p style="font-size:.9375rem">Desarrollo de líderes, iglesias y ministerios.</p></div>
+      <div><h2>Portal</h2><ul>${PUB_NAV.slice(1).map(([h, l]) => `<li><a href="#${h}">${l}</a></li>`).join('')}</ul></div>
+      <div><h2>Plataforma</h2><ul><li><a href="#acceso">Campus virtual</a></li><li><a href="#acceso">Oficina virtual</a></li><li><a href="#estado">Estado del prototipo</a></li></ul></div>
+      <div><h2>Contacto</h2><ul><li>contacto@leadersource.example</li><li>Datos de ejemplo</li></ul></div></div>
+    <div class="footer-note"><span>© 2026 LeaderSource. Prototipo con contenido provisional.</span><span>${themeBtn()}</span></div></div></footer>`;
+}
+
+function sidebar(name) {
+  const items = [];
+  const add = (grp, h, label, icon, show = true) => { if (show) items.push({ grp, h, label, icon }); };
+  const campusLabel = S.role === 'participante' ? 'Mi aprendizaje' : S.role === 'instructor' ? 'Mis cursos' : 'Gestión de programas';
+  add('Campus', 'campus', campusLabel, 'book', can('Campus: mi aprendizaje') || can('Campus: gestión de cursos'));
+  add('Campus', 'formacion', 'Catálogo', 'layers');
+  add('Oficina virtual', 'oficina', 'Documentos', 'folder');
+  add('Oficina virtual', 'participantes', 'Participantes', 'users', can('Oficina: participantes y expedientes'));
+  add('Oficina virtual', 'solicitudes', 'Solicitudes', 'clip', can('Oficina: solicitudes'));
+  add('Oficina virtual', 'reportes', 'Reportes', 'chart', can('Reportes administrativos'));
+  add('Administración', 'admin', 'Panel administrativo', 'sliders', ['superadmin', 'director', 'coordinador'].includes(S.role));
+  add('Entornos', 'inicio', 'Portal público', 'globe');
+  add('Entornos', 'estado', 'Estado del prototipo', 'info');
+  const curN = { curso: 'campus', leccion: 'campus', expediente: 'participantes' }[name] || name;
+  let out = '', g = '';
+  items.forEach(i => { if (i.grp !== g) { g = i.grp; out += `<h2>${g}</h2>`; } out += `<a href="#${i.h}" ${curN === i.h ? 'aria-current="page"' : ''}>${ic(i.icon)} ${i.label}</a>`; });
+  return `<aside class="sidebar" id="sidebar" aria-label="Navegación de la plataforma">
+    <div class="row" style="justify-content:space-between;flex-wrap:nowrap">${brand('#campus')}<button type="button" class="btn sec sm on-dark drawer-btn" data-drawer-close aria-label="Cerrar menú">${ic('x')}</button></div>
+    <nav aria-label="Módulos disponibles para su rol">${out}</nav>
+    <div class="role-box"><label for="role-sel">Rol de demostración</label><select id="role-sel">${ROLES.map(r => `<option value="${r.id}" ${r.id === S.role ? 'selected' : ''}>${esc(r.name)}</option>`).join('')}</select><small>Selector solo para revisar el diseño. En producción el rol viene de la sesión y la API decide el acceso.</small></div>
+  </aside>`;
+}
+function appShell(name, html, bare) {
+  return `<a class="skip" href="#main" data-skip>Saltar al contenido</a>${protobar()}
+  <div class="app">${sidebar(name)}<div class="app-main">
+    <div class="app-top"><div class="row"><button type="button" class="btn sec sm drawer-btn" data-drawer-open aria-controls="sidebar" aria-expanded="false">${ic('menu')} Menú</button><span class="crumbs">${esc(curRole().person)} · ${esc(curRole().name)}</span></div><div class="row">${themeBtn()}</div></div>
+    <main id="main" ${bare ? '' : 'class="app-body"'}>${html}</main></div></div>`;
+}
+
+/* Rutas */
+function resolve() {
+  const h = (location.hash || '#inicio').replace(/^#/, '') || 'inicio';
+  let m;
+  const pub = (name, html) => ({ name, env: 'pub', html });
+  const app = (name, html, bare) => ({ name, env: 'app', html, bare });
+  switch (true) {
+    case h === 'inicio': return pub('inicio', viewInicio());
+    case h === 'estrategia': return pub('estrategia', viewEstrategia());
+    case h === 'formacion': return pub('formacion', viewFormacion());
+    case h === 'recursos': return pub('recursos', viewRecursos());
+    case h === 'contacto': return pub('contacto', viewContacto());
+    case h === 'acceso': return pub('acceso', viewAcceso());
+    case h === 'estado': return pub('estado', viewEstado());
+    case h in STUBS && h !== 'reportes': return pub(h, viewStub(...STUBS[h]));
+    case h === 'campus': return app('campus', can('Campus: mi aprendizaje') || can('Campus: gestión de cursos') ? viewCampus() : denied('el campus de aprendizaje'));
+    case (m = h.match(/^curso-(\d+)$/)) !== null: return app('curso', viewCurso(m[1]));
+    case (m = h.match(/^leccion-(\d+)-(\d+)-(\d+)$/)) !== null: return (can('Campus: mi aprendizaje') || can('Campus: gestión de cursos')) ? app('leccion', viewLeccion(+m[1], +m[2], +m[3]), true) : app('leccion', denied('las lecciones del campus'));
+    case h === 'oficina': return app('oficina', viewOficina());
+    case h === 'participantes': return app('participantes', can('Oficina: participantes y expedientes') ? viewParticipantes() : denied('los expedientes de participantes'));
+    case (m = h.match(/^expediente-(\d+)$/)) !== null: return app('expediente', viewExpediente(m[1]));
+    case h === 'solicitudes': return app('solicitudes', can('Oficina: solicitudes') ? viewSolicitudes() : denied('las solicitudes'));
+    case h === 'reportes': return app('reportes', can('Reportes administrativos') ? viewStub(...STUBS.reportes).replace('class="page-head"', 'class="page-head" style="margin:-40px -24px 0"') : denied('los reportes administrativos'));
+    case h === 'admin': return app('admin', ['superadmin', 'director', 'coordinador'].includes(S.role) ? viewAdmin() : denied('el panel administrativo'));
+    default: return pub('inicio', viewInicio());
+  }
+}
+
+let lastRoute = null;
+function render(opts = {}) {
+  const r = resolve();
+  const y = window.scrollY;
+  root.innerHTML = r.env === 'pub' ? publicShell(r.name, r.html) : appShell(r.name, r.html, r.bare);
+  document.title = `${TITLES[r.name] || 'LeaderSource'} · LeaderSource`;
+  // restaurar valores de campos
+  const set = (id, v) => { const e = document.getElementById(id); if (e) e.value = v; };
+  set('cat-q', S.cat.q); set('d-q', S.doc.q); set('d-c', S.doc.cat); set('d-v', S.doc.vis); set('d-s', S.doc.status);
+  const ln = r.html.includes('id="quiz"') ? location.hash.replace('#leccion-', '') : null;
+  if (ln) applyQuiz(ln);
+  if (opts.focus) { const e = document.getElementById(opts.focus); if (e) e.focus(); window.scrollTo(0, y); }
+  else if (!opts.nav) { window.scrollTo(0, y); }
+  else if (opts.nav) { const h1 = root.querySelector('h1'); window.scrollTo(0, 0); if (h1) { h1.setAttribute('tabindex', '-1'); h1.focus({ preventScroll: true }); } }
+  lastRoute = r.name;
+}
+window.addEventListener('hashchange', () => render({ nav: true }));
+
+/* Cuestionario */
+function applyQuiz(ln) {
+  const res = S.quiz[ln]; if (!res) return;
+  res.ans.forEach((a, i) => { const inp = root.querySelector(`input[name="q${i}"][value="${a}"]`); if (inp) inp.checked = true; const q = document.getElementById('q' + i); if (q) q.classList.add(a === QUIZ[i].a ? 'right' : 'wrong'); });
+  const out = document.getElementById('quiz-out'); if (out) out.textContent = `Resultado: ${res.score} %. ${res.score >= 70 ? 'Aprobado.' : 'No alcanzó el 70 %. Revise las respuestas e inténtelo de nuevo.'}`;
+}
+function submitQuiz() {
+  const ln = location.hash.replace('#leccion-', '');
+  const ans = QUIZ.map((q, i) => { const c = root.querySelector(`input[name="q${i}"]:checked`); return c ? +c.value : -1; });
+  const out = document.getElementById('quiz-out');
+  if (ans.includes(-1)) { out.textContent = 'Responda las tres preguntas antes de comprobar.'; return; }
+  const score = Math.round(100 * ans.filter((a, i) => a === QUIZ[i].a).length / QUIZ.length);
+  S.quiz[ln] = { score, ans }; store.set('ls-quiz', S.quiz);
+  if (score >= 70) { S.done[ln] = true; store.set('ls-done', S.done); }
+  render({ focus: 'quiz-go' });
+}
+
+/* Eventos delegados */
+document.addEventListener('click', e => {
+  const t = e.target.closest('button, a, [data-doc], [data-req]'); if (!t) return;
+  if (t.matches('[data-skip]')) { e.preventDefault(); const m = document.getElementById('main'); m.setAttribute('tabindex', '-1'); m.focus(); return; }
+  if (t.matches('[data-filter]')) { const [k, v] = t.dataset.filter.split(':'); S.cat = { q: '', stage: [], action: [], format: [], level: [], mod: [] }; S.cat[k] = [v]; return; }
+  if (t.matches('[data-clear]')) { S.cat = { q: '', stage: [], action: [], format: [], level: [], mod: [] }; render({ focus: 'cat-q' }); return; }
+  if (t.matches('[data-doc]')) { S.doc.sel = +t.dataset.doc; document.getElementById('doc-table').innerHTML = docTable(); document.getElementById('doc-panel').innerHTML = docPanel(); return; }
+  if (t.matches('[data-req]')) { S.req.sel = t.dataset.req; document.getElementById('req-table').innerHTML = reqTable(); document.getElementById('req-panel').innerHTML = reqPanel(); return; }
+  if (t.matches('[data-tab]')) { S.tab = t.dataset.tab; render({ focus: 't-' + S.tab }); return; }
+  if (t.matches('#toggle-done')) { const k = location.hash.replace('#leccion-', ''); S.done[k] = !S.done[k]; store.set('ls-done', S.done); render({ focus: 'toggle-done' }); return; }
+  if (t.matches('[data-role]')) { S.role = t.dataset.role; store.set('ls-role', S.role); location.hash = t.dataset.go; return; }
+  if (t.matches('[data-theme-toggle]')) { const n = effTheme() === 'dark' ? 'light' : 'dark'; document.documentElement.setAttribute('data-theme', n); store.set('ls-theme', n); const b = root.querySelector('[data-theme-toggle]'); render({ focus: null }); const nb = root.querySelector('[data-theme-toggle]'); if (nb) nb.focus(); return; }
+  if (t.matches('#menu-btn')) { const nav = document.getElementById('nav'); const o = nav.classList.toggle('open'); t.setAttribute('aria-expanded', o); return; }
+  if (t.matches('[data-drawer-open]')) { document.getElementById('sidebar').classList.add('open'); t.setAttribute('aria-expanded', 'true'); const sc = document.createElement('div'); sc.className = 'scrim'; sc.id = 'scrim'; sc.setAttribute('data-drawer-close', ''); document.body.appendChild(sc); return; }
+  if (t.matches('[data-drawer-close]')) { const s = document.getElementById('sidebar'); if (s) s.classList.remove('open'); const sc = document.getElementById('scrim'); if (sc) sc.remove(); return; }
+  const sc = e.target.closest('#scrim'); if (sc) { document.getElementById('sidebar').classList.remove('open'); sc.remove(); return; }
+  if (t.matches('.nav a, .sidebar a')) { const n = document.getElementById('nav'); if (n) n.classList.remove('open'); const sc2 = document.getElementById('scrim'); if (sc2) sc2.remove(); }
+});
+document.addEventListener('input', e => {
+  const t = e.target;
+  if (t.id === 'cat-q') { S.cat.q = t.value; document.getElementById('cat-results').innerHTML = catResults(); }
+  if (t.id === 'd-q') { S.doc.q = t.value; document.getElementById('doc-table').innerHTML = docTable(); }
+});
+document.addEventListener('change', e => {
+  const t = e.target;
+  if (t.matches('[data-cat]')) { const a = S.cat[t.dataset.cat]; const i = a.indexOf(t.value); if (t.checked && i < 0) a.push(t.value); if (!t.checked && i >= 0) a.splice(i, 1); document.getElementById('cat-results').innerHTML = catResults(); }
+  if (t.id === 'd-c') { S.doc.cat = t.value; document.getElementById('doc-table').innerHTML = docTable(); }
+  if (t.id === 'd-v') { S.doc.vis = t.value; document.getElementById('doc-table').innerHTML = docTable(); }
+  if (t.id === 'd-s') { S.doc.status = t.value; document.getElementById('doc-table').innerHTML = docTable(); }
+  if (t.id === 'role-sel') { S.role = t.value; store.set('ls-role', S.role); S.doc.sel = null; S.req.sel = null; render({ focus: 'role-sel' }); }
+});
+document.addEventListener('submit', e => { if (e.target.id === 'quiz') { e.preventDefault(); submitQuiz(); } });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') { const s = document.getElementById('sidebar'); if (s && s.classList.contains('open')) { s.classList.remove('open'); const sc = document.getElementById('scrim'); if (sc) sc.remove(); } } });
+
+(function init() {
+  const th = store.get('ls-theme', null); if (th) document.documentElement.setAttribute('data-theme', th);
+  render({});
+})();
+</script>
+</body></html>
